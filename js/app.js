@@ -21,7 +21,7 @@ const monsterDiff=[6,6.5,7,7,7.5,8,8,9,9.5];
 document.getElementById("battleFooterGrid").innerHTML=A.monsters.map((m,i)=>`<div class="battleMonster" onclick="showPop('Batalha de Monstros','${monsterNames[i]} • dificuldade ${monsterDiff[i]}.','index')"><img src="${m}" alt="${monsterNames[i]}"><b>${monsterNames[i]}</b><small>Dificuldade ${monsterDiff[i]}</small></div>`).join("");
 
 const RC=document.getElementById("realCards");
-const crestMap={A:A.crestsApproved[0],B:A.crestsApproved[1],C:A.crestsApproved[2]};
+const crestMap={A:"assets/images/brasao-4a-transparente.png",B:A.crestsApproved[1],C:A.crestsApproved[2]};
 function resourceModal(key,h){
  const extra={
   hp:`Valor atual: ${h.hp}/10. O HP representa a vida dos heróis e é influenciado pelas atitudes registradas no ClassMana.`,
