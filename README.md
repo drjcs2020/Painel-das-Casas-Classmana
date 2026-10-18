@@ -89,3 +89,10 @@ Os XP são a soma dos saldos **acumulados atuais** de cada estudante. O Índice 
 ## Notas técnicas
 
 O código foi separado conservando os componentes visuais e as rotinas do protótipo HTML V15. As 36 imagens foram extraídas sem recompressão e referenciadas por caminhos locais. Esta refatoração **não converte o projeto para PlayCanvas** e não adiciona sons ou animações novos; cria apenas uma estrutura preparada para essa evolução.
+
+
+### Correção visual v1.0.4 (18/10/2026)
+- Card **4º A**: cenário `assets/images/arte-031.jpg` na camada inferior e `assets/images/brasao-4a-transparente.png` por cima.
+- O brasão original `assets/images/arte-027.png` é preservado.
+- Os cards 4º B e 4º C, os dados dos alunos e os cálculos não foram alterados.
+- Após subir ao GitHub, atualize a página com Ctrl+F5 para renovar arquivos em cache.
