@@ -1,0 +1,97 @@
+{
+  "periodo": "acumulado desde o início do projeto até 16–17/10/2026",
+  "status": "metodologia v1.0 adotada para atualizações futuras; contagens classificadas necessitam critérios consistentes",
+  "pesos": {
+    "conv": 0.4,
+    "tech": 0.25,
+    "learn": 0.15,
+    "comp": 0.1,
+    "mission": 0.1
+  },
+  "referencias_fixas_por_aluno": {
+    "tech": 3.0833333333333335,
+    "learn": 0.9166666666666666,
+    "comp": 4.5,
+    "mission": 6.038461538461538
+  },
+  "turmas": {
+    "A": {
+      "alunos": 24,
+      "contagens": {
+        "pos": 99,
+        "neg": 141,
+        "tech": 74,
+        "learn": 22,
+        "comp": 61,
+        "mission": 128
+      },
+      "notas_sem_arredondamento": {
+        "conv": 5.84070796460177,
+        "tech": 10,
+        "learn": 10,
+        "comp": 7.824074074074074,
+        "mission": 9.416135881104033
+      },
+      "notas_exibidas": {
+        "conv": 5.84,
+        "tech": 10.0,
+        "learn": 10.0,
+        "comp": 7.82,
+        "mission": 9.42
+      },
+      "indice": 8.06
+    },
+    "B": {
+      "alunos": 28,
+      "contagens": {
+        "pos": 93,
+        "neg": 133,
+        "tech": 43,
+        "learn": 11,
+        "comp": 66,
+        "mission": 116
+      },
+      "notas_sem_arredondamento": {
+        "conv": 5.830721003134796,
+        "tech": 7.4903474903474905,
+        "learn": 7.142857142857142,
+        "comp": 7.619047619047619,
+        "mission": 8.43039126478617
+      },
+      "notas_exibidas": {
+        "conv": 5.83,
+        "tech": 7.49,
+        "learn": 7.14,
+        "comp": 7.62,
+        "mission": 8.43
+      },
+      "indice": 6.88
+    },
+    "C": {
+      "alunos": 26,
+      "contagens": {
+        "pos": 84,
+        "neg": 156.5,
+        "tech": 30,
+        "learn": 6,
+        "comp": 117,
+        "mission": 157
+      },
+      "notas_sem_arredondamento": {
+        "conv": 5.177195685670262,
+        "tech": 6.871101871101871,
+        "learn": 6.258741258741259,
+        "comp": 10,
+        "mission": 10
+      },
+      "notas_exibidas": {
+        "conv": 5.18,
+        "tech": 6.87,
+        "learn": 6.26,
+        "comp": 10.0,
+        "mission": 10.0
+      },
+      "indice": 6.73
+    }
+  }
+}
