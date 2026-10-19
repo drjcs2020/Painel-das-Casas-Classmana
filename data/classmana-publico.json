@@ -1,19 +1,19 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-10-19T21:29:59.864Z",
+  "exportedAt": "2026-10-19T21:47:09.778Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
       "code": "A",
       "turma": "4º A",
-      "students": 24,
-      "totalXp": 304351,
-      "xp": 12681.291666666666,
-      "level": 13.083333333333334,
-      "mana": 4.666666666666667,
-      "hp": 9.916666666666666,
-      "goldTotal": 27005,
-      "gold": 1125.2083333333333
+      "students": 25,
+      "totalXp": 304501,
+      "xp": 12180.04,
+      "level": 12.6,
+      "mana": 4.56,
+      "hp": 9.92,
+      "goldTotal": 27105,
+      "gold": 1084.2
     },
     {
       "code": "B",
@@ -171,19 +171,19 @@
     },
     {
       "house": "A",
-      "group": 5,
-      "name": "Magicos e Engenheiros",
-      "students": 4,
-      "totalXp": 48323,
-      "xp": 12080.75
-    },
-    {
-      "house": "A",
       "group": 1,
       "name": "Fadas Guerreiras",
       "students": 4,
       "totalXp": 45411,
       "xp": 11352.75
+    },
+    {
+      "house": "A",
+      "group": 5,
+      "name": "Magicos e Engenheiros",
+      "students": 5,
+      "totalXp": 48473,
+      "xp": 9694.6
     }
   ],
   "students": [
@@ -966,6 +966,16 @@
       "mana": 5,
       "hp": 10,
       "gold": 790
+    },
+    {
+      "house": "A",
+      "name": "PEDRO CORREA",
+      "team": "Magicos e Engenheiros",
+      "level": 1,
+      "xp": 150,
+      "mana": 2,
+      "hp": 10,
+      "gold": 100
     }
   ]
 }
