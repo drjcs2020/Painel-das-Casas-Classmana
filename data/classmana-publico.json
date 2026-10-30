@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-10-30T19:46:54.303Z",
+  "exportedAt": "2026-10-30T19:58:34.472Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -19,13 +19,13 @@
       "code": "B",
       "turma": "4º B",
       "students": 27,
-      "totalXp": 449099,
-      "xp": 16633.296296296296,
-      "level": 17.14814814814815,
+      "totalXp": 449599,
+      "xp": 16651.814814814814,
+      "level": 17.185185185185187,
       "mana": 4.222222222222222,
       "hp": 9.444444444444445,
-      "goldTotal": 51226,
-      "gold": 1897.2592592592594
+      "goldTotal": 51331,
+      "gold": 1901.148148148148
     },
     {
       "code": "C",
@@ -110,8 +110,8 @@
       "group": 5,
       "name": "Magicos e Engenheiros",
       "students": 5,
-      "totalXp": 79502,
-      "xp": 15900.4
+      "totalXp": 80002,
+      "xp": 16000.4
     },
     {
       "house": "C",
@@ -288,6 +288,16 @@
       "gold": 1192
     },
     {
+      "house": "B",
+      "name": "MIGUEL HENRIQUE SAMPAIO BEGES",
+      "team": "Magicos e Engenheiros",
+      "level": 20,
+      "xp": 19370,
+      "mana": 5,
+      "hp": 10,
+      "gold": 1267
+    },
+    {
       "house": "A",
       "name": "ISABELA PRADO",
       "team": "Dragoes de Combate",
@@ -316,16 +326,6 @@
       "mana": 5,
       "hp": 10,
       "gold": 2134
-    },
-    {
-      "house": "B",
-      "name": "MIGUEL HENRIQUE SAMPAIO BEGES",
-      "team": "Magicos e Engenheiros",
-      "level": 19,
-      "xp": 18870,
-      "mana": 5,
-      "hp": 10,
-      "gold": 1162
     },
     {
       "house": "C",
