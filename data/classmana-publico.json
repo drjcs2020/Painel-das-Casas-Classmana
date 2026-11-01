@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-01T00:30:12.079Z",
+  "exportedAt": "2026-11-01T01:02:50.199Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -31,13 +31,13 @@
       "code": "C",
       "turma": "4º C",
       "students": 26,
-      "totalXp": 424730,
-      "xp": 16335.76923076923,
+      "totalXp": 424800,
+      "xp": 16338.461538461539,
       "level": 16.884615384615383,
       "mana": 3.8846153846153846,
       "hp": 8.23076923076923,
-      "goldTotal": 46849,
-      "gold": 1801.8846153846155
+      "goldTotal": 46914,
+      "gold": 1804.3846153846155
     }
   ],
   "teams": [
@@ -94,8 +94,8 @@
       "group": 6,
       "name": "Dragoes de Combate",
       "students": 4,
-      "totalXp": 65335,
-      "xp": 16333.75
+      "totalXp": 65405,
+      "xp": 16351.25
     },
     {
       "house": "C",
@@ -709,6 +709,16 @@
     },
     {
       "house": "C",
+      "name": "RAFAEL FERNANDO DOS SANTOS CORDEIRO",
+      "team": "Dragoes de Combate",
+      "level": 16,
+      "xp": 15240,
+      "mana": 2,
+      "hp": 9,
+      "gold": 758
+    },
+    {
+      "house": "C",
       "name": "EMILY DOS SANTOS BUENO",
       "team": "Chama Congelante",
       "level": 16,
@@ -726,16 +736,6 @@
       "mana": 4,
       "hp": 10,
       "gold": 1772
-    },
-    {
-      "house": "C",
-      "name": "RAFAEL FERNANDO DOS SANTOS CORDEIRO",
-      "team": "Dragoes de Combate",
-      "level": 16,
-      "xp": 15170,
-      "mana": 2,
-      "hp": 9,
-      "gold": 693
     },
     {
       "house": "B",
