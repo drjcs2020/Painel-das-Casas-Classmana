@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-01T01:02:50.199Z",
+  "exportedAt": "2026-11-01T02:35:47.502Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -31,13 +31,13 @@
       "code": "C",
       "turma": "4º C",
       "students": 26,
-      "totalXp": 424800,
-      "xp": 16338.461538461539,
+      "totalXp": 425240,
+      "xp": 16355.384615384615,
       "level": 16.884615384615383,
-      "mana": 3.8846153846153846,
+      "mana": 3.923076923076923,
       "hp": 8.23076923076923,
-      "goldTotal": 46914,
-      "gold": 1804.3846153846155
+      "goldTotal": 47154,
+      "gold": 1813.6153846153845
     }
   ],
   "teams": [
@@ -62,8 +62,8 @@
       "group": 1,
       "name": "Fadas Guerreiras",
       "students": 4,
-      "totalXp": 74677,
-      "xp": 18669.25
+      "totalXp": 74967,
+      "xp": 18741.75
     },
     {
       "house": "A",
@@ -86,8 +86,8 @@
       "group": 4,
       "name": "Cavaleiros e Guerreiros",
       "students": 4,
-      "totalXp": 66249,
-      "xp": 16562.25
+      "totalXp": 66399,
+      "xp": 16599.75
     },
     {
       "house": "C",
@@ -259,6 +259,16 @@
     },
     {
       "house": "C",
+      "name": "ANGELA TAYLINE RODRIGUES DA CRUZ",
+      "team": "Fadas Guerreiras",
+      "level": 20,
+      "xp": 19733,
+      "mana": 5,
+      "hp": 10,
+      "gold": 1362
+    },
+    {
+      "house": "C",
       "name": "NICOLAS ANTONIO DIAS GONÇALVES",
       "team": "Dragoes de Combate",
       "level": 20,
@@ -286,16 +296,6 @@
       "mana": 5,
       "hp": 10,
       "gold": 1297
-    },
-    {
-      "house": "C",
-      "name": "ANGELA TAYLINE RODRIGUES DA CRUZ",
-      "team": "Fadas Guerreiras",
-      "level": 20,
-      "xp": 19443,
-      "mana": 5,
-      "hp": 10,
-      "gold": 1192
     },
     {
       "house": "A",
@@ -922,10 +922,10 @@
       "name": "FELIPE BONFIM BRANDT DA SILVA",
       "team": "Cavaleiros e Guerreiros",
       "level": 10,
-      "xp": 9360,
-      "mana": 2,
+      "xp": 9510,
+      "mana": 3,
       "hp": 6,
-      "gold": 690
+      "gold": 760
     },
     {
       "house": "C",
