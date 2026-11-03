@@ -1,19 +1,19 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-01T13:49:36.948Z",
+  "exportedAt": "2026-11-03T16:29:06.905Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
       "code": "A",
       "turma": "4º A",
       "students": 26,
-      "totalXp": 371628,
-      "xp": 14293.384615384615,
+      "totalXp": 371988,
+      "xp": 14307.23076923077,
       "level": 14.884615384615385,
       "mana": 4.346153846153846,
       "hp": 9.961538461538462,
-      "goldTotal": 45714,
-      "gold": 1758.2307692307693
+      "goldTotal": 45979,
+      "gold": 1768.423076923077
     },
     {
       "code": "B",
@@ -31,13 +31,13 @@
       "code": "C",
       "turma": "4º C",
       "students": 26,
-      "totalXp": 425240,
-      "xp": 16355.384615384615,
+      "totalXp": 425532,
+      "xp": 16366.615384615385,
       "level": 16.884615384615383,
-      "mana": 3.923076923076923,
-      "hp": 8.23076923076923,
-      "goldTotal": 47154,
-      "gold": 1813.6153846153845
+      "mana": 4.038461538461538,
+      "hp": 8.307692307692308,
+      "goldTotal": 47254,
+      "gold": 1817.4615384615386
     }
   ],
   "teams": [
@@ -62,16 +62,24 @@
       "group": 1,
       "name": "Fadas Guerreiras",
       "students": 4,
-      "totalXp": 74967,
-      "xp": 18741.75
+      "totalXp": 74979,
+      "xp": 18744.75
     },
     {
       "house": "A",
       "group": 3,
       "name": "Lobos e Gatunos",
       "students": 4,
-      "totalXp": 68671,
-      "xp": 17167.75
+      "totalXp": 68881,
+      "xp": 17220.25
+    },
+    {
+      "house": "C",
+      "group": 4,
+      "name": "Cavaleiros e Guerreiros",
+      "students": 4,
+      "totalXp": 66499,
+      "xp": 16624.75
     },
     {
       "house": "A",
@@ -83,19 +91,11 @@
     },
     {
       "house": "C",
-      "group": 4,
-      "name": "Cavaleiros e Guerreiros",
-      "students": 4,
-      "totalXp": 66399,
-      "xp": 16599.75
-    },
-    {
-      "house": "C",
       "group": 6,
       "name": "Dragoes de Combate",
       "students": 4,
-      "totalXp": 65405,
-      "xp": 16351.25
+      "totalXp": 65585,
+      "xp": 16396.25
     },
     {
       "house": "C",
@@ -182,8 +182,8 @@
       "group": 4,
       "name": "Cavaleiros e Guerreiros",
       "students": 5,
-      "totalXp": 58072,
-      "xp": 11614.4
+      "totalXp": 58222,
+      "xp": 11644.4
     }
   ],
   "students": [
@@ -262,10 +262,10 @@
       "name": "ANGELA TAYLINE RODRIGUES DA CRUZ",
       "team": "Fadas Guerreiras",
       "level": 20,
-      "xp": 19733,
+      "xp": 19745,
       "mana": 5,
       "hp": 10,
-      "gold": 1362
+      "gold": 1372
     },
     {
       "house": "C",
@@ -299,6 +299,16 @@
     },
     {
       "house": "A",
+      "name": "LUIS AUGUSTO DE PAULA ALMEIDA",
+      "team": "Lobos e Gatunos",
+      "level": 20,
+      "xp": 19273,
+      "mana": 5,
+      "hp": 10,
+      "gold": 3765
+    },
+    {
+      "house": "A",
       "name": "ISABELA PRADO",
       "team": "Dragoes de Combate",
       "level": 20,
@@ -306,16 +316,6 @@
       "mana": 3,
       "hp": 10,
       "gold": 322
-    },
-    {
-      "house": "A",
-      "name": "LUIS AUGUSTO DE PAULA ALMEIDA",
-      "team": "Lobos e Gatunos",
-      "level": 20,
-      "xp": 19063,
-      "mana": 5,
-      "hp": 10,
-      "gold": 3600
     },
     {
       "house": "B",
@@ -698,6 +698,16 @@
       "gold": 985
     },
     {
+      "house": "C",
+      "name": "RAFAEL FERNANDO DOS SANTOS CORDEIRO",
+      "team": "Dragoes de Combate",
+      "level": 16,
+      "xp": 15420,
+      "mana": 4,
+      "hp": 10,
+      "gold": 818
+    },
+    {
       "house": "B",
       "name": "SAMEL JUNIOR RODRIGUES DOS SANTOS",
       "team": "Cavaleiros e Guerreiros",
@@ -706,16 +716,6 @@
       "mana": 5,
       "hp": 10,
       "gold": 1937
-    },
-    {
-      "house": "C",
-      "name": "RAFAEL FERNANDO DOS SANTOS CORDEIRO",
-      "team": "Dragoes de Combate",
-      "level": 16,
-      "xp": 15240,
-      "mana": 2,
-      "hp": 9,
-      "gold": 758
     },
     {
       "house": "C",
@@ -922,10 +922,10 @@
       "name": "FELIPE BONFIM BRANDT DA SILVA",
       "team": "Cavaleiros e Guerreiros",
       "level": 10,
-      "xp": 9510,
-      "mana": 3,
-      "hp": 6,
-      "gold": 760
+      "xp": 9610,
+      "mana": 4,
+      "hp": 7,
+      "gold": 790
     },
     {
       "house": "C",
@@ -972,47 +972,10 @@
       "name": "GABRIEL MARCONDES",
       "team": "Cavaleiros e Guerreiros",
       "level": 2,
-      "xp": 1193,
+      "xp": 1343,
       "mana": 5,
       "hp": 10,
-      "gold": 383
+      "gold": 483
     }
-  ],
-  "indices": [
-    {
-      "code": "A",
-      "axes": {
-        "conv": 5.88,
-        "tech": 9.62,
-        "learn": 10,
-        "comp": 8.12,
-        "mission": 9.87
-      },
-      "score": 8.06
-    },
-    {
-      "code": "B",
-      "axes": {
-        "conv": 5.76,
-        "tech": 7.58,
-        "learn": 9.65,
-        "comp": 8,
-        "mission": 9.78
-      },
-      "score": 7.42
-    },
-    {
-      "code": "C",
-      "axes": {
-        "conv": 4.95,
-        "tech": 7.18,
-        "learn": 7.73,
-        "comp": 10,
-        "mission": 10
-      },
-      "score": 6.93
-    }
-  ],
-  "indexComputedAt": "2026-11-01T13:49:12.051Z",
-  "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
+  ]
 }
