@@ -7,7 +7,7 @@ Jogo hospedado dentro do repositório do Painel das Casas. O painel original per
 ## Jogar
 
 1. Entre no endereço acima.
-2. Selecione uma das Casas: 4º A — Águia Dourada; 4º B — Leões de Fogo; 4º C — Dragão de Esmeralda.
+2. Selecione uma das Casas: 4º A — Águia Dourada; 4º B — Leão de Fogo; 4º C — Dragão de Esmeralda.
 3. Escolha seu código de arqueiro ou **Arqueiro convidado**.
 4. Selecione treinamento, robô fácil/médio/difícil ou desafio por link entre Casas.
 5. Segure e arraste para mirar; solte para disparar. São cinco flechas por rodada.
