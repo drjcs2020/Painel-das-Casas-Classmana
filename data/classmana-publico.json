@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-03T16:29:06.905Z",
+  "exportedAt": "2026-11-03T16:45:46.574Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -977,5 +977,42 @@
       "hp": 10,
       "gold": 483
     }
-  ]
+  ],
+  "indices": [
+    {
+      "code": "A",
+      "axes": {
+        "conv": 5.88,
+        "tech": 9.62,
+        "learn": 10,
+        "comp": 8.12,
+        "mission": 9.97
+      },
+      "score": 8.07
+    },
+    {
+      "code": "B",
+      "axes": {
+        "conv": 5.76,
+        "tech": 7.58,
+        "learn": 9.65,
+        "comp": 8,
+        "mission": 9.78
+      },
+      "score": 7.42
+    },
+    {
+      "code": "C",
+      "axes": {
+        "conv": 4.95,
+        "tech": 7.18,
+        "learn": 7.73,
+        "comp": 10,
+        "mission": 10
+      },
+      "score": 6.93
+    }
+  ],
+  "indexComputedAt": "2026-11-03T16:45:19.838Z",
+  "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
 }
