@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1b2547">
+<meta name="description" content="Torneio de Arco e Flecha das três Casas ClassMana: Águia Dourada, Leões de Fogo e Dragão de Esmeralda.">
+<title>ClassMana — Torneio de Arco e Flecha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+<div class="sky-sparkles" aria-hidden="true"></div>
+<div class="page">
+<header class="nav-bar">
+ <a class="brand" href="../index.html" title="Voltar ao Painel das Casas">
+  <img src="../assets/images/arte-002.webp" alt="Logo ClassMana">
+  <span><b>CLASSMANA</b><small>TORNEIO DE ARCO E FLECHA</small></span>
+ </a>
+ <div class="nav-links"><button class="nav-link active" data-view="inicio">🏰 Início</button><button class="nav-link" data-view="ranking">🏆 Ranking</button><button class="nav-link" data-view="regras">📜 Regras</button></div>
+ <span class="ready"><span class="ready-dot"></span> PRONTO PARA JOGAR</span>
+</header>
+
+<main>
+<section id="view-inicio" class="view active">
+ <div class="banner">
+  <div class="banner-light"></div>
+  <div class="banner-inner">
+   <div class="season">⚔️ &nbsp; CAMPEONATO ENTRE CASAS &nbsp; ⚔️</div>
+   <h1>O GRANDE <span>TORNEIO</span><br>DE ARCO E FLECHA</h1>
+   <p>Três Casas. Um castelo. Cada flecha pode mudar o destino da batalha!</p>
+   <button class="primary giant" id="hero-play">🏹 ENTRAR NA ARENA <span>➜</span></button>
+  </div>
+  <div class="banner-bottom"><span>✦ 4º A · ÁGUIA DOURADA</span><span>✦ 4º B · LEÕES DE FOGO</span><span>✦ 4º C · DRAGÃO DE ESMERALDA</span></div>
+ </div>
+
+ <div class="section-title"><div><small>01 · ESCOLHA SEU ESTANDARTE</small><h2>Qual Casa você vai defender?</h2></div><span class="hint">Selecione uma Casa para começar</span></div>
+ <div class="houses" id="houses">
+  <button class="house house-a selected" data-house="A" aria-pressed="true" style="--house-bg:url('../assets/images/arte-031.jpg')">
+   <span class="house-shine"></span><span class="crest-wrap"><img src="../assets/images/brasao-4a-transparente.png" alt="Brasão da Águia Dourada"></span>
+   <span class="house-name">ÁGUIA DOURADA</span><span class="house-grade">4º ANO A · HONRA E PRECISÃO</span><span class="house-check">✓ SELECIONADA</span>
+  </button>
+  <button class="house house-b" data-house="B" aria-pressed="false" style="--house-bg:url('../assets/images/arte-032.jpg')">
+   <span class="house-shine"></span><span class="crest-wrap"><img src="../assets/images/arte-028.png" alt="Brasão do Leão de Fogo"></span>
+   <span class="house-name">LEÕES DE FOGO</span><span class="house-grade">4º ANO B · CORAGEM E PODER</span><span class="house-check">ESCOLHER CASA</span>
+  </button>
+  <button class="house house-c" data-house="C" aria-pressed="false" style="--house-bg:url('../assets/images/arte-033.jpg')">
+   <span class="house-shine"></span><span class="crest-wrap"><img src="../assets/images/arte-029.png" alt="Brasão do Dragão de Esmeralda"></span>
+   <span class="house-name">DRAGÃO DE ESMERALDA</span><span class="house-grade">4º ANO C · SABEDORIA E FOCO</span><span class="house-check">ESCOLHER CASA</span>
+  </button>
+ </div>
+ <div class="setup" id="setup">
+  <div class="setup-head"><div><small>02 · PREPARE SUA FLECHA</small><h2>Preparar batalha</h2></div><span class="stamp">🏹 5 FLECHAS POR RODADA</span></div>
+  <div class="setup-fields">
+   <label>Seu arqueiro<select id="player"><option value="guest">Arqueiro convidado</option></select><small>Você pode treinar sem cadastro.</small></label>
+   <label>Modo de jogo<select id="mode"><option value="bot">🤖 Desafiar o robô</option><option value="challenge">⚔️ Desafiar outra Casa por link</option><option value="practice">🎯 Treinamento livre</option></select><small>Desafios entre Casas usam um link compartilhável.</small></label>
+   <label id="difficulty-label">Dificuldade do robô<select id="difficulty"><option value="easy">🟢 Fácil</option><option value="medium" selected>🟡 Médio</option><option value="hard">🔴 Difícil</option></select><small>O robô ajusta a mira conforme o desempenho.</small></label>
+   <label class="hidden" id="rival-label">Adversário de outra Casa<select id="rival"></select><small>Escolha um estudante da outra turma.</small></label>
+  </div>
+  <button class="primary start" id="start-game">⚔️ COMEÇAR O TORNEIO <span>➜</span></button>
+ </div>
+</section>
+
+<section id="view-arena" class="view">
+ <div class="arena-top"><button class="back" id="leave-arena">← Voltar ao castelo</button><div class="arena-header"><small>🏹 ARENA REAL DE ARCO E FLECHA</small><b id="match-title">TORNEIO DAS CASAS</b></div><div class="arena-status">🟢 ARENA DISPONÍVEL</div></div>
+ <div class="battle-hud">
+  <div><small>DEFENSOR</small><strong id="hud-player">Águia Dourada</strong></div>
+  <div class="score-display"><span id="hud-score">0</span><span>✦</span><span id="hud-rival">0</span></div>
+  <div class="right"><small>ADVERSÁRIO</small><strong id="hud-bot">Robô · Médio</strong></div>
+ </div>
+ <div class="stage" id="stage">
+  <canvas id="world" aria-label="Arena de arco e flecha com castelo, arco e alvo"></canvas>
+  <svg class="bow-overlay" viewBox="0 0 340 480" aria-hidden="true" preserveAspectRatio="xMinYMax meet">
+   <defs><linearGradient id="bowwood" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#49250f"/><stop offset=".47" stop-color="#c9863f"/><stop offset="1" stop-color="#5b351f"/></linearGradient><linearGradient id="arrowtip" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff3b2"/><stop offset="1" stop-color="#ae6c32"/></linearGradient></defs>
+   <path d="M71 35 Q228 217 66 448" fill="none" stroke="#42220f" stroke-width="19" stroke-linecap="round"/>
+   <path d="M71 35 Q228 217 66 448" fill="none" stroke="url(#bowwood)" stroke-width="12" stroke-linecap="round"/>
+   <path d="M71 35 L139 245 L66 448" fill="none" stroke="#fff2c5" stroke-width="2.8"/>
+   <path d="M24 245 L287 245" fill="none" stroke="#503622" stroke-width="7" stroke-linecap="round"/>
+   <path d="M290 245 L265 234 L265 256Z" fill="url(#arrowtip)" stroke="#653c22" stroke-width="2"/>
+   <path d="M43 245 L19 231 L31 245 L19 259Z" fill="#f8e1a4"/>
+  </svg>
+  <div class="playcross" id="playcross" aria-hidden="true"><span></span></div>
+  <div class="game-top-left"><div class="hud-pill" id="wind">🌬 VENTO 0 km/h</div><div class="hud-pill" id="distance">🎯 25 METROS</div></div>
+  <div class="game-top-right"><div class="hud-pill" id="shots">🏹 FLECHA 1 / 5</div><div class="hud-pill" id="power">⚡ FORÇA 0%</div></div>
+  <div class="instruction" id="instruction">SEGURE PARA MIRAR • SOLTE PARA DISPARAR</div>
+  <div class="hit" id="hit"></div>
+  <div class="finish hidden" id="finish">
+    <div class="finish-card"><small>🏆 RESULTADO DO TORNEIO</small><h2 id="finish-title">FIM DE PARTIDA</h2><p id="finish-desc"></p><div class="finish-results" id="finish-results"></div><div class="finish-actions"><button class="primary" id="play-again">🏹 JOGAR NOVAMENTE</button><button class="secondary" id="share-result">🔗 COMPARTILHAR DESAFIO</button></div><div class="share-help" id="share-help"></div></div>
+  </div>
+ </div>
+ <div class="game-foot"><span>🎯 Mire no centro e compense o vento</span><span>🖱 Mouse / toque · arraste a mira · solte para disparar</span><span>⌨️ Setas + espaço também funcionam</span></div>
+</section>
+
+<section id="view-ranking" class="view information-view">
+  <div class="page-heading"><small>🏆 SALÃO DOS CAMPEÕES</small><h1>Ranking do Torneio</h1><p>As três Casas disputam o trono dos arqueiros.</p></div>
+  <div class="notice">📌 <b>Resultados deste navegador.</b> O ranking geral compartilhado entre computadores exige um banco de dados online. Esta versão não inventa pontuações nem promete sincronização inexistente.</div>
+  <div class="ranking-layout"><div class="ranking-panel"><h2>🏰 Placar das Casas</h2><div id="rank-houses"></div></div><div class="ranking-panel"><h2>🏹 Arqueiros em destaque</h2><div id="rank-players"></div></div></div>
+  <button class="primary" id="rank-play">🏹 VOLTAR AO TORNEIO</button>
+</section>
+
+<section id="view-regras" class="view information-view">
+  <div class="page-heading"><small>📜 CÓDIGO DOS ARQUEIROS</small><h1>Regras do Castelo</h1></div>
+  <div class="rules-grid"><article><b>🎯 1. Mire com precisão</b><p>Arraste a mira com o mouse ou o dedo. O vento altera o ponto de impacto. Solte para atirar.</p></article><article><b>🏹 2. Cinco flechas</b><p>Cada arqueiro tem cinco tentativas. Acerte o centro para ganhar até 10 pontos por flecha.</p></article><article><b>🤖 3. Robô adaptativo</b><p>Escolha Fácil, Médio ou Difícil. O robô ajusta seus disparos ao desempenho recente.</p></article><article><b>⚔️ 4. Duelos entre Casas</b><p>Crie um desafio, copie o link e envie ao colega de outra Casa. O resultado pode ser compartilhado depois.</p></article><article><b>🏆 5. Ranking justo</b><p>O torneio mede a pontuação das flechas; o XP e HP pedagógicos não são afetados.</p></article><article><b>🔐 6. Privacidade</b><p>O jogo mostra identificadores e apelidos abreviados, sem dados disciplinares. O modo de desafio por link ainda não autentica participantes.</p></article></div>
+  <button class="primary" id="rules-play">🏹 EXPERIMENTAR A ARENA</button>
+</section>
+</main>
+<footer><img src="../assets/images/arte-002.webp" alt="ClassMana"><span>CLASSMANA · TORNEIO DAS TRÊS CASAS · VERSÃO 2</span><span>Feito para jogar na web · Sem conexão local obrigatória</span></footer>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="roster.js?v=2"></script><script type="module" src="game.js?v=2"></script>
+</body>
+</html>
