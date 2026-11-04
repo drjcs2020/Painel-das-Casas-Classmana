@@ -281,7 +281,9 @@ async function loginStudent(){
  btn.disabled=true;btn.textContent='⏳ ENTRANDO...';$('login-help').textContent='Confirmando identidade na planilha...';
  try{
   const user=await online.login(id,pin);$('student-pin').value='';$('login-panel').classList.add('hidden');
-  showOnlineStatus();await refreshInbox();toast('🏹 Bem-vindo ao torneio, '+user.name+'!');
+  showOnlineStatus();const pendentes=await refreshInbox();const count=pendentes.filter(c=>c.recipient.id===user.id&&c.status==='PENDENTE').length;
+   toast(count?'🔔 Você recebeu '+count+' desafio(s)!':'🏹 Bem-vindo ao torneio, '+user.name+'!');
+   if(count)await openInbox();
  }catch(e){$('login-help').textContent='⚠️ '+e.message;toast('Não foi possível entrar: '+e.message)}
  finally{btn.disabled=false;btn.textContent='ENTRAR'}
 }
@@ -352,7 +354,10 @@ async function startOnlineClient(){
  showOnlineStatus();
  if(!online.enabled)return;
  try{
-  await online.connect();await online.list();showOnlineStatus();await refreshInbox();renderRanking();
+  await online.connect();await online.list();showOnlineStatus();const pendentes=await refreshInbox();renderRanking();
+   if(online.user&&pendentes.some(c=>c.recipient.id===online.user.id&&c.status==='PENDENTE')){
+     toast('🔔 Você foi desafiado! Aceite ou recuse quando quiser.');await openInbox();
+   }
  }catch(error){online.state='error';showOnlineStatus();$('online-status').textContent='⚠️ Serviço online indisponível: '+error.message;}
 }
 
@@ -382,4 +387,4 @@ document.querySelectorAll('[data-rank]').forEach(btn=>btn.addEventListener('clic
 }));
 selectHouse('A');updateMode();processLink();renderRanking();
 startOnlineClient();
-setInterval(()=>{if(online.user)refreshInbox().catch(console.warn)},120000);
+setInterval(async()=>{if(!online.user)return;try{const prev=Number($('unread-count').textContent)||0;const rows=await refreshInbox();const unread=rows.filter(c=>c.recipient.id===online.user.id&&c.status==='PENDENTE').length;if(unread>prev){toast('🔔 Novo desafio recebido!');await openInbox()}}catch(error){console.warn('Convites online:',error)}},120000);
