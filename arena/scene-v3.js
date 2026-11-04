@@ -15,19 +15,42 @@ const rgb = h => [1,3,5].map(i => parseInt(h.slice(i, i+2), 16) / 255);
 
 export function initScene(canvas, getSettings) {
   const parent=canvas.parentElement;
-  let pc=null, app=null, gl=null, camera=null, bowRoot=null, bowHandle=null, bowString=null,
+  let pc=null, app=null, gl=null, camera=null, bowRoot=null, bowHandle=null, bowString=null, sightAnchor=null,
       arrowLoaded=null, targetRoot=null, impactMarks=[], currentHouse='A', ready=false, destroyed=false,
       aimX=.5, aimY=.46, power=.3, projectile=null, pendingShot=null, animT=0;
   const ctx=canvas.getContext('2d', {alpha:true});
   const state={kind:'Cenário ilustrado',setHouse, setTargetShift, setAim, setPower,
-    getTargetMetrics, fire, impact, destroy};
+    getTargetMetrics, getAimPoint, fire, impact, destroy};
   const root=()=>app.root;
   const canvasSize=()=>({w:parent.clientWidth||1050,h:parent.clientHeight||540});
 
   function getTargetMetrics(){
     const {w,h}=canvasSize(),s=getSettings()||{},distance=s.distance||25,shift=s.shift||0;
+    if(ready&&camera?.camera&&targetRoot&&gl){
+      const center=targetRoot.getPosition().clone().add(new pc.Vec3(0,0,.052));
+      const a=camera.camera.worldToScreen(center);
+      const b=camera.camera.worldToScreen(center.clone().add(new pc.Vec3(1.34,0,0)));
+      const kx=w/(gl.clientWidth||w),ky=h/(gl.clientHeight||h),r=Math.abs(b.x-a.x)*kx;
+      if(Number.isFinite(a.x)&&Number.isFinite(a.y)&&r>0)return {x:a.x*kx,y:a.y*ky,r};
+    }
     const r=Math.min(h*.105,w*.082)*Math.pow(25/distance,.35);
     return {x:w*(.50+shift),y:h*.45,r};
+  }
+  function fallbackSightGeometry(){
+    const {w,h}=canvasSize(),size=h*.89;
+    const bx=w*aimX+115,by=h*aimY+size*.03;
+    return {bx,by,size,sightX:bx-115,sightY:by-size*.03};
+  }
+  function getAimPoint(){
+    const {w,h}=canvasSize();
+    if(ready&&camera?.camera&&sightAnchor&&gl){
+      // This is the visible, physical sight attached to the bow.
+      const p=camera.camera.worldToScreen(sightAnchor.getPosition());
+      const x=p.x/(gl.clientWidth||w),y=p.y/(gl.clientHeight||h);
+      if(Number.isFinite(x)&&Number.isFinite(y))return {x,y};
+    }
+    const sight=fallbackSightGeometry();
+    return {x:sight.sightX/w,y:sight.sightY/h};
   }
   function setHouse(k){currentHouse=palettes[k]?k:'A';parent.classList.remove('house-a','house-b','house-c');parent.classList.add('house-'+currentHouse.toLowerCase());
     if(ready){colorBow();colorTarget();}}
@@ -66,8 +89,7 @@ export function initScene(canvas, getSettings) {
     ctx.beginPath();ctx.arc(m.x,m.y,m.r*.07,0,Math.PI*2);ctx.strokeStyle='#9d682b';ctx.lineWidth=1.4;ctx.stroke();
     ctx.save();ctx.translate(m.x,m.y);for(let i=0;i<64;i++){const a=i*Math.PI*2/64;ctx.strokeStyle=i%3?'rgba(255,212,114,.43)':'rgba(81,46,17,.46)';ctx.lineWidth=i%2?2.2:1.3;ctx.beginPath();ctx.moveTo(Math.cos(a)*m.r*1.03,Math.sin(a)*m.r*1.03);ctx.lineTo(Math.cos(a+.055)*m.r*1.13,Math.sin(a+.055)*m.r*1.13);ctx.stroke();}ctx.restore();
     // Modern recurve bow with metallic grooves, not a wooden longbow.
-    const bx=w*.63+(aimX-.5)*w*.40, by=h*.53+(aimY-.5)*h*.58,
-       size=h*.89, bend=Math.sin(time/1600)*1.3;
+    const {bx,by,size}=fallbackSightGeometry(),bend=Math.sin(time/1600)*1.3;
     const bladeTop={x:bx-12,y:by-size*.58},bladeBottom={x:bx-10,y:by+size*.58};
     ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
     let metal=ctx.createLinearGradient(bx-35,0,bx+32,0);metal.addColorStop(0,'#17212b');metal.addColorStop(.20,p.body);metal.addColorStop(.43,'#d8e1eb');metal.addColorStop(.62,p.body);metal.addColorStop(1,p.trim);
@@ -176,7 +198,7 @@ export function initScene(canvas, getSettings) {
     if(!targetRoot)return;const p=palettes[currentHouse],m=material(p.beam,{metal:.08,rough:.84});
     targetRoot.findComponents('render').forEach(e=>{if(e.entity.name.includes('wood')){e.material=m;for(const mesh of e.meshInstances)mesh.material=m;}});
   }
-  function moveTarget(){if(!targetRoot)return;const m=getTargetMetrics(),camZ=7, targetZ=-9, h=canvasSize().h;
+  function moveTarget(){if(!targetRoot)return;const camZ=7, targetZ=-9, h=canvasSize().h;
     const units=h/(2*Math.tan(41*Math.PI/360)*(camZ-targetZ));const x=((getSettings()?.shift||0)*canvasSize().w)/units;
     targetRoot.setLocalPosition(x,2.05,-9);
   }
@@ -240,7 +262,7 @@ export function initScene(canvas, getSettings) {
     const grip=primitive('cylinder','ergonomic dark handgrip',[.03,-.12,-.08],[.17,.43,.13],dark,bowRoot,[0,0,90]);
     // Sight rig: ring placed left of riser, towards player, distinct from 2D crosshair.
     tube('sight bridge',[[-.02,.25,-.08],[-.25,.25,-.08],[-.52,.25,-.08]],[.013,.012,.009],dark,bowRoot);
-    const sight=new pc.Entity('Circle aiming sight');sight.setLocalPosition(-.55,.25,-.08);bowRoot.addChild(sight);
+    const sight=new pc.Entity('Circle aiming sight');sight.setLocalPosition(-.55,.25,-.08);bowRoot.addChild(sight);sightAnchor=sight;
     circleMesh('sight black metal ring',.088,.007,dark,sight);
     circleMesh('sight gilded inner rim',.078,.0026,gold,sight);
     tube('sight vertical line',[[0,-.044,.003],[0,0,.003],[0,.044,.003]],[.0009,.0009,.0009],silver,sight,5);
@@ -262,11 +284,13 @@ export function initScene(canvas, getSettings) {
   function update3D(dt){if(!ready)return;animT+=dt;const p=getSettings()||{};
     if(targetRoot)moveTarget();
     if(bowRoot){
-      const dx=(aimX-.5),dy=(aimY-.46),t=performance.now()*0.001;
-      const desired=new pc.Vec3(.61+dx*1.10,-.28-dy*.86,-2.08-.12*power);
-      const eased=new pc.Vec3().lerp(bowRoot.getLocalPosition(),desired,clamp(dt*15,0,1));
-      bowRoot.setLocalPosition(eased);
-      bowRoot.setLocalEulerAngles(-dy*17,-dx*15,Math.sin(t*1.7)*.18);
+      const {w,h}=canvasSize(),dx=aimX-.5,dy=aimY-.45,t=performance.now()*.001;
+      // Inverse perspective: the mouse moves the actual sight, which is the only reticle.
+      const depth=2.16,halfH=depth*Math.tan(camera.camera.fov*Math.PI/360);
+      const sightInCamera=new pc.Vec3((2*aimX-1)*halfH*w/h,(1-2*aimY)*halfH,-depth);
+      bowRoot.setLocalEulerAngles(-dy*2,dx*2,Math.sin(t*1.7)*.1);
+      const offset=bowRoot.getLocalRotation().transformVector(new pc.Vec3(-.55,.25,-.08));
+      bowRoot.setLocalPosition(sightInCamera.sub(offset));
       if(arrowLoaded)arrowLoaded.setLocalPosition(.02,-.03,-.40+.36*power);
       if(bowString)bowString.setLocalPosition(0,0,.19*power);
     }
@@ -274,11 +298,11 @@ export function initScene(canvas, getSettings) {
       const eased=t*t*(3-2*t);const pos=new pc.Vec3().lerp(s.start,s.end,eased);
       pos.y+=.18*Math.sin(t*Math.PI)-.10*t*t;
       projectile.setPosition(pos);
-      if(t>=1){projectile.enabled=false;pendingShot=null;s.done?.();}}
+      if(t>=1){projectile.enabled=false;pendingShot=null;if(arrowLoaded)arrowLoaded.enabled=true;s.done?.();}}
   }
   function impact({x=.5,y=.45,score=0}={}){
     if(!ready||!targetRoot||score<=0)return;
-    const {w,h}=canvasSize(),m=getTargetMetrics(),ppu=h/(2*Math.tan(41*Math.PI/360)*16);
+    const {w,h}=canvasSize(),m=getTargetMetrics(),ppu=m.r/1.34;
     const lx=((x*w-m.x)/ppu),ly=-((y*h-m.y)/ppu);
     const e=new pc.Entity('Embedded arrow at impact');targetRoot.addChild(e);e.setLocalPosition(lx,ly,.15);
     const dark=material('#1b2228',{metal:.45,rough:.35}),red=material('#e33d31'),white=material('#eee7cf');
@@ -304,9 +328,11 @@ export function initScene(canvas, getSettings) {
     if(pendingShot)return;
     if(!projectile) projectile=createArrowProjectile();
     const {w,h}=canvasSize(),target=targetRoot.getPosition(),m=getTargetMetrics();
-    const distCam=16,ppu=h/(2*Math.tan(41*Math.PI/360)*distCam);
+    const ppu=m.r/1.34;
     const toX=target.x+((x*w-m.x)/ppu),toY=target.y-((y*h-m.y)/ppu);
-    const start=new pc.Vec3(.52,1.64,5.05),end=new pc.Vec3(toX,toY,-8.58);
+    const start=arrowLoaded?.getPosition().clone()||new pc.Vec3(.52,1.64,5.05);
+    const end=new pc.Vec3(toX,toY,-8.58);
+    if(arrowLoaded)arrowLoaded.enabled=false;
     projectile.enabled=true;projectile.setPosition(start);projectile.setEulerAngles(0,0,0);
     return new Promise(resolve=>{pendingShot={start,end,elapsed:0,duration: .47+(.15*(1-shotPower)),done:resolve};});
   }
