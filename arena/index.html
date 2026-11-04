@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=2">
-<link rel="stylesheet" href="v3.css?v=6">
+<link rel="stylesheet" href="v3.css?v=7">
 </head>
 <body>
 <div class="sky-sparkles" aria-hidden="true"></div>
@@ -54,9 +54,9 @@
   <div class="setup-head"><div><small>02 · PREPARE SUA FLECHA</small><h2>Preparar batalha</h2></div><span class="stamp">🏹 5 FLECHAS POR RODADA</span></div>
   <div class="setup-fields">
    <label>Seu arqueiro<select id="player"><option value="guest">Arqueiro convidado</option></select><small>Você pode treinar sem cadastro.</small></label>
-   <label>Modo de jogo<select id="mode"><option value="bot">🤖 Desafiar o robô</option><option value="challenge">⚔️ Desafiar outra Casa por link</option><option value="practice">🎯 Treinamento livre</option></select><small>Desafios entre Casas usam um link compartilhável.</small></label>
+   <label>Modo de jogo<select id="mode"><option value="bot">🤖 Desafiar o robô</option><option value="challenge_same">⚔️ Desafiar colega da mesma turma</option><option value="challenge">🛡️ Desafiar estudante de outra Casa</option><option value="practice">🎯 Treinamento livre</option></select><small>Duelo por link: cada aluno joga suas 5 flechas e compartilha o resultado.</small></label>
    <label id="difficulty-label">Dificuldade do robô<select id="difficulty"><option value="easy">🟢 Fácil</option><option value="medium" selected>🟡 Médio</option><option value="hard">🔴 Difícil</option></select><small>O robô ajusta a mira conforme o desempenho.</small></label>
-   <label class="hidden" id="rival-label">Adversário de outra Casa<select id="rival"></select><small>Escolha um estudante da outra turma.</small></label>
+   <label class="hidden" id="rival-label">Adversário de outra Casa<select id="rival"></select><small>Escolha um estudante da turma rival.</small></label>
   </div>
   <button class="primary start" id="start-game">⚔️ COMEÇAR O TORNEIO <span>➜</span></button>
  </div>
@@ -111,6 +111,6 @@
 <footer><img src="../assets/images/arte-002.webp" alt="ClassMana"><span>CLASSMANA · TORNEIO DAS TRÊS CASAS · VERSÃO 3</span><span>Feito para jogar na web · Sem conexão local obrigatória</span></footer>
 </div>
 <div id="toast" role="status" aria-live="polite"></div>
-<script src="roster.js?v=2"></script><script type="module" src="game-v3.js?v=6"></script>
+<script src="roster.js?v=2"></script><script type="module" src="game-v3.js?v=7"></script>
 </body>
 </html>
