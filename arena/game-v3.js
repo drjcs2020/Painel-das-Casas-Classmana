@@ -1,10 +1,12 @@
 import {initScene} from './scene-v3.js?v=7';
+import {online} from './online-client.js?v=1';
 const $=id=>document.getElementById(id);
 const H={A:{grade:'4º A',name:'Águia Dourada',color:'#78bdff'},B:{grade:'4º B',name:'Leão de Fogo',color:'#ff9778'},C:{grade:'4º C',name:'Dragão de Esmeralda',color:'#8defac'}};
 const R=window.CLASSMANA_ROSTER||{A:[],B:[],C:[]};
 const clamp=(v,min,max)=>Math.min(max,Math.max(min,v));
 let house='A',view='inicio',scene=null,match=null,reticle={x:.50,y:.45},pointerStart=0,holding=false,storage=[];
-let incoming=null;
+let incoming=null,scoreTab='players',onlineInbox=[],onlineLoading=false;
+const TEAMS=window.CLASSMANA_TEAMS||{};
 const rand=(a,b)=>a+Math.random()*(b-a);
 function safeRead(){try{const a=JSON.parse(localStorage.getItem('classmana-archery-v2'));return Array.isArray(a)?a.filter(x=>x&&typeof x==='object').slice(-150):[]}catch{return []}}
 storage=safeRead();
@@ -14,17 +16,19 @@ function openView(name){if(name!=='arena'&&view==='arena'&&match?.running){match
 function choices(h){return (R[h]||[]).map((name,i)=>({id:h+String(i+1).padStart(2,'0'),name}));}
 function fillPlayer(wanted){const sel=$('player');sel.innerHTML='<option value="guest">Arqueiro convidado</option>'+choices(house).map(p=>`<option value="${p.id}">${p.id} · ${p.name}</option>`).join('');if(wanted&&choices(house).some(x=>x.id===wanted))sel.value=wanted;fillRivals()}
 function fillRivals(){
- const sel=$('rival'),previous=sel.value,same=$('mode').value==='challenge_same';
- const pool=Object.keys(H).filter(h=>same?h===house:h!==house)
-   .flatMap(choices).filter(p=>p.id!==$('player').value);
- sel.innerHTML=pool.map(p=>`<option value="${p.id}">${H[p.id[0]].grade} · ${p.id} · ${p.name}</option>`).join('');
- if(pool.some(p=>p.id===previous))sel.value=previous;
- const label=$('rival-label');
- if(label){
-   label.firstChild.textContent=same?'Adversário da mesma Casa':'Adversário de outra Casa';
-   label.querySelector('small').textContent=same?'Escolha um colega da sua turma, diferente de você.':'Escolha um estudante do 4º A, B ou C de outra Casa.';
+ const sel=$('rival'),prior=sel.value,mode=$('mode').value;
+ const same=mode==='challenge_same',teams=mode==='challenge_team',myId=$('player').value;
+ const myTeam=online.user?.team&&online.user?.id===myId?online.user.team:TEAMS[myId];
+ let players=Object.keys(H).filter(h=>same?h===house:teams?true:h!==house).flatMap(choices)
+   .filter(p=>p.id!==myId&&(!teams||TEAMS[p.id]!==myTeam));
+ sel.innerHTML=players.map(p=>`<option value="${p.id}">${H[p.id[0]].grade} · ${p.id} · ${p.name}${teams?' · '+(TEAMS[p.id]||'') :''}</option>`).join('');
+ if(players.some(p=>p.id===prior))sel.value=prior;
+ const lbl=$('rival-label');if(lbl){
+  lbl.firstChild.textContent=teams?'Arqueiro de outra equipe':same?'Colega da sua turma':'Adversário de outra Casa';
+  lbl.querySelector('small').textContent=teams?'A partida conta para o ranking da equipe.':same?'Duelos individuais dentro da mesma turma.':'Confrontos entre o 4º A, 4º B e 4º C.';
  }
 }
+
 function selectHouse(k){
  house=k;
  document.querySelectorAll('.house').forEach(el=>{
@@ -38,7 +42,9 @@ function selectHouse(k){
  scene?.setHouse(k);
  fillPlayer(incoming?.rivalId?.[0]===k?incoming.rivalId:null);
 }
-function isDuel(mode){return mode==='challenge'||mode==='challenge_same'}
+function isDuel(mode){return mode==='challenge'||mode==='challenge_same'||mode==='challenge_team'}
+function duelKind(mode){return mode==='challenge_same'?'mesma_turma':mode==='challenge_team'?'entre_equipes':'interclasses'}
+function duelMode(kind){return kind==='mesma_turma'?'challenge_same':kind==='entre_equipes'?'challenge_team':'challenge'}
 function updateMode(){const v=$('mode').value;$('difficulty-label').classList.toggle('hidden',v!=='bot');$('rival-label').classList.toggle('hidden',!isDuel(v));fillRivals()}
 function byId(id){return choices(id?.[0]||'A').find(x=>x.id===id)?.name||'Arqueiro '+id}
 function nameOf(id){return id==='guest'?'Arqueiro convidado':byId(id)}
