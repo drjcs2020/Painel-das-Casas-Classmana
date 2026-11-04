@@ -62,24 +62,47 @@ function renderWind(wind){
 function uiHud(){if(!match)return;$('hud-player').textContent=match.player+' · '+H[match.house].grade;$('hud-bot').textContent=match.mode==='bot'?'🤖 Robô · '+({easy:'Fácil',medium:'Médio',hard:'Difícil'}[match.difficulty]):match.mode==='practice'?'🎯 Treinamento':match.incoming?'⚔️ '+byId(match.incoming.playerId):'⚔️ '+byId(match.rivalId);$('hud-score').textContent=match.scores.reduce((a,b)=>a+b,0);$('hud-rival').textContent=match.incoming?match.incoming.score:match.mode==='bot'?'?':'—';renderWind(match.wind);$('distance').textContent='🎯 '+Math.round(match.distance)+' METROS';$('shots').textContent='🏹 FLECHA '+Math.min(match.scores.length+1,5)+' / 5';$('power').textContent='⚡ FORÇA '+(holding?Math.round(clamp((Date.now()-pointerStart)/950,.2,1)*100):0)+'%';}
 function worldSettings(){return {distance:match?.distance||25,shift:match?.shift||0,house:match?.house||house}}
 function ensureScene(){if(!scene)scene=initScene($('world'),worldSettings);scene.setHouse(house)}
-function changeTarget(){if(!match)return;match.distance=24+match.scores.length*2.3;match.shift=Math.round(rand(-8,8))/100;match.wind=Math.round(rand(-4.0,4.0)*10)/10;scene?.setTargetShift(match.shift);uiHud();}
-function startMatch(){
- if(match?.running){match.running=false;match.locked=false;holding=false;$('stage').classList.remove('aiming','firing');scene?.setPower(0);}
- const userId=$('player').value,mode=incoming?(incoming.house===incoming.rivalId[0]?'challenge_same':'challenge'):$('mode').value,rivalId=incoming?.playerId||$('rival').value;
- if(isDuel(mode)&&userId==='guest'){toast('Selecione seu arqueiro para enviar um desafio.');return}
- if(incoming&&userId!==incoming.rivalId){toast('Este desafio é destinado a '+incoming.rivalId+'.');return}
- if(isDuel(mode)&&!incoming){
-   if(!rivalId||!choices(rivalId[0]).some(p=>p.id===rivalId)){toast('Escolha um adversário válido.');return}
-   if(userId===rivalId){toast('Você não pode desafiar a si mesmo.');return}
-   if((userId[0]===rivalId[0])!==(mode==='challenge_same')){
-     toast(mode==='challenge_same'?'Escolha um colega da mesma Casa.':'Escolha um aluno de outra Casa.');
-     return;
-   }
- }
- match={house,playerId:userId,player:nameOf(userId),mode,difficulty:$('difficulty').value,rivalId,scores:[],running:true,locked:false,wind:0,distance:25,shift:0,incoming:incoming?{...incoming}:null,seed:Math.floor(rand(100000,999999))};
- reticle={x:.50,y:.45};$('finish').classList.add('hidden');$('instruction').textContent='MOVA OU ARRASTE PARA MIRAR • SEGURE PARA PUXAR • SOLTE PARA ATIRAR';
- openView('arena');ensureScene();changeTarget();updateReticle();
+function changeTarget(){
+ if(!match)return;
+ const cfg=match.online?.settings?.[match.scores.length];
+ if(cfg){match.distance=cfg.distance;match.shift=cfg.shift;match.wind=cfg.wind;}
+ else{match.distance=24+match.scores.length*2.3;match.shift=Math.round(rand(-8,8))/100;match.wind=Math.round(rand(-4,4)*10)/10;}
+ scene?.setTargetShift(match.shift);uiHud();
 }
+async function startMatch(accepted=null){
+ if(onlineLoading)return;
+ const fromInbox=accepted&&typeof accepted.id==='string'?accepted:null;
+ const mode=fromInbox?duelMode(fromInbox.kind):$('mode').value;
+ let userId=$('player').value,rivalId=fromInbox?fromInbox.creator.id:$('rival').value,challenge=null;
+ if(isDuel(mode)){
+  if(!online.enabled){toast('Para desafios oficiais, o servidor Google Sheets precisa ser ativado.');return}
+  if(!online.user){$('login-panel').classList.remove('hidden');toast('Entre com seu PIN para participar do torneio online.');return}
+  userId=online.user.id;
+  if(!fromInbox){
+   if(!rivalId||!choices(rivalId[0]).some(x=>x.id===rivalId)){toast('Escolha um adversário.');return}
+   if(userId===rivalId){toast('Você não pode desafiar a si mesmo.');return}
+   if((mode==='challenge_same'&&userId[0]!==rivalId[0])||(mode==='challenge'&&userId[0]===rivalId[0])||
+      (mode==='challenge_team'&&TEAMS[userId]===TEAMS[rivalId])){
+    toast('Escolha um adversário válido para este tipo de desafio.');return;
+   }
+  }else if(fromInbox.recipient.id!==userId&&fromInbox.creator.id!==userId){toast('Esse desafio não pertence à sua conta.');return;}
+  try{
+   onlineLoading=true;$('start-game').disabled=true;$('start-game').textContent='⏳ PREPARANDO DESAFIO ONLINE...';
+   challenge=fromInbox||await online.create(duelKind(mode),rivalId);
+  }catch(error){toast('Não foi possível criar o desafio: '+error.message);return}
+  finally{onlineLoading=false;$('start-game').disabled=false;$('start-game').innerHTML='🏹 INICIAR PARTIDA <span>➜</span>'}
+ }
+ if(match?.running){match.running=false;match.locked=false;holding=false;$('stage').classList.remove('aiming','firing');scene?.setPower(0);}
+ if(online.user&&isDuel(mode)){userId=online.user.id;selectHouse(userId[0]);$('player').value=userId;}
+ match={house:userId==='guest'?house:userId[0],playerId:userId,player:nameOf(userId),mode,difficulty:$('difficulty').value,
+  rivalId,scores:[],running:true,locked:false,wind:0,distance:25,shift:0,incoming:null,
+  online:challenge,onlineShots:[],onlineReplay:challenge?.recipient.id===userId?challenge.creatorShots:[],
+  onlineReplayPoints:0,seed:Math.floor(rand(100000,999999))};
+ reticle={x:.50,y:.45};$('finish').classList.add('hidden');
+ $('instruction').textContent='MOVA A MIRA DO ARCO • SEGURE PARA PUXAR • SOLTE PARA ATIRAR';
+ openView('arena');ensureScene();changeTarget();updateReticle();uiHud();
+}
+
 function updateReticle(){
   // Mouse/touch drives the bow. There is no second, independent crosshair.
   scene?.setAim(reticle.x,reticle.y);
