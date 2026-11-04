@@ -73,7 +73,7 @@ async function startMatch(accepted=null){
  if(onlineLoading)return;
  const fromInbox=accepted&&typeof accepted.id==='string'?accepted:null;
  const mode=fromInbox?duelMode(fromInbox.kind):$('mode').value;
- let userId=$('player').value,rivalId=fromInbox?fromInbox.creator.id:$('rival').value,challenge=null;
+ let userId=$('player').value,rivalId=fromInbox?(fromInbox.creator.id===online.user?.id?fromInbox.recipient.id:fromInbox.creator.id):$('rival').value,challenge=null;
  if(isDuel(mode)){
   if(!online.enabled){toast('Para desafios oficiais, o servidor Google Sheets precisa ser ativado.');return}
   if(!online.user){$('login-panel').classList.remove('hidden');toast('Entre com seu PIN para participar do torneio online.');return}
@@ -248,6 +248,100 @@ async function renderRanking(){
   $('rank-houses').innerHTML='<div class="empty">Placar temporariamente indisponível.</div>';
   $('rank-players').innerHTML='<div class="empty">Os resultados permanecem no servidor; tente novamente.</div>';
  }
+}
+
+function showOnlineStatus(){
+ const ok=online.enabled&&online.state==='ready',user=online.user;
+ $('online-status').classList.toggle('ok',ok);
+ $('online-status').classList.toggle('error',!ok);
+ $('online-account-name').textContent=user?'🏹 '+user.name+' · 4º '+user.house+' · '+user.team:'🔐 Perfil do arqueiro';
+ $('online-status').textContent=!online.enabled?'⚠️ Banco criado; API do Google Apps Script ainda não ativada.':
+   !ok?'⏳ Consultando o serviço online...':user?'✅ Conectado: resultados salvos na planilha online.':'✅ Ranking disponível. Entre com o PIN para receber desafios.';
+ $('open-login').classList.toggle('hidden',!!user);
+ $('logout').classList.toggle('hidden',!user);
+ $('open-inbox').disabled=!user;
+ if(user){selectHouse(user.house);$('player').value=user.id;fillRivals();}
+}
+async function loginStudent(){
+ if(!online.enabled){toast('O professor precisa publicar a API antes de liberar o torneio online.');return;}
+ const id=$('player').value,pin=$('student-pin').value.trim(),btn=$('submit-login');
+ if(!id||id==='guest'){toast('Selecione primeiro seu nome na lista da turma.');return;}
+ btn.disabled=true;btn.textContent='⏳ ENTRANDO...';$('login-help').textContent='Confirmando identidade na planilha...';
+ try{
+  const user=await online.login(id,pin);$('student-pin').value='';$('login-panel').classList.add('hidden');
+  showOnlineStatus();await refreshInbox();toast('🏹 Bem-vindo ao torneio, '+user.name+'!');
+ }catch(e){$('login-help').textContent='⚠️ '+e.message;toast('Não foi possível entrar: '+e.message)}
+ finally{btn.disabled=false;btn.textContent='ENTRAR'}
+}
+function renderInbox(){
+ const list=$('inbox-list');list.innerHTML='';
+ $('inbox-status').textContent=online.user?
+  'Os desafios ficam gravados. Você pode aceitar hoje ou em outra data; os cinco disparos do adversário serão reproduzidos.':
+  'Entre com seu PIN para ver convites de outros alunos.';
+ if(!onlineInbox.length){list.innerHTML='<div class="empty">Nenhum desafio para esta conta.</div>';return;}
+ for(const ch of onlineInbox){
+  const opponent=ch.creator.id===online.user?.id?ch.recipient:ch.creator;
+  const mine=ch.creator.id===online.user?.id,score=mine?ch.creatorScore:ch.creatorScore;
+  const item=document.createElement('article');item.className='cm-challenge';
+  const title=document.createElement('strong');title.textContent=(mine?'📤 Você desafiou ':'🔔 Você foi desafiado por ')+opponent.name;
+  const type={mesma_turma:'Mesma turma',entre_equipes:'Entre equipes',interclasses:'Interclasses'}[ch.kind]||ch.kind;
+  const sub=document.createElement('small');sub.textContent=type+' · '+ch.status+' · '+new Date(ch.created).toLocaleDateString('pt-BR');
+  const desc=document.createElement('p');desc.textContent=score===null?
+    'Pontuação inicial ainda não enviada.':
+    'Pontuação do primeiro arqueiro: '+score+' pontos (5 flechas).';
+  item.append(title,sub,desc);
+  const buttons=document.createElement('div');buttons.className='cm-challenge-actions';
+  function action(label,kind,reject=false){
+   const b=document.createElement('button');b.type='button';b.className='cm-challenge-btn'+(reject?' reject':'');
+   b.textContent=label;b.dataset.id=ch.id;b.dataset.action=kind;buttons.appendChild(b);
+  }
+  if(!mine&&ch.status==='PENDENTE'){action('✅ ACEITAR DESAFIO','accept');action('❌ RECUSAR','decline',true)}
+  else if(!mine&&ch.status==='ACEITO'){action('🏹 JOGAR MINHAS 5 FLECHAS','play')}
+  else if(mine&&ch.status==='CRIADOR_JOGANDO'){action('🏹 RETOMAR MINHA RODADA','play')}
+  else if(ch.status==='CONCLUIDO'){
+   const result=document.createElement('p');
+   const own=mine?ch.creatorScore:ch.recipientScore,other=mine?ch.recipientScore:ch.creatorScore;
+   result.textContent='🏆 Resultado oficial: '+own+' × '+other+' pontos. '+(own>other?'Vitória!':own===other?'Empate!':'Derrota.');
+   item.appendChild(result);
+  }else{const state=document.createElement('small');state.textContent=ch.status==='PENDENTE'?'⏳ Aguardando o colega responder.':ch.status==='RECUSADO'?'🚫 Convite recusado.':'⏳ Aguardando a rodada do adversário.';item.appendChild(state)}
+  if(buttons.children.length)item.appendChild(buttons);list.appendChild(item);
+ }
+}
+async function refreshInbox(){
+ if(!online.enabled||!online.user){onlineInbox=[];$('unread-count').textContent='0';return [];}
+ onlineInbox=await online.inbox();
+ const pending=onlineInbox.filter(c=>c.recipient.id===online.user.id&&c.status==='PENDENTE').length;
+ $('unread-count').textContent=String(pending);
+ $('open-inbox').title=pending?'Você recebeu '+pending+' desafio(s)!':'Nenhum desafio pendente';
+ renderInbox();return onlineInbox;
+}
+async function openInbox(){
+ if(!online.user){$('login-panel').classList.remove('hidden');$('setup').scrollIntoView({behavior:'smooth',block:'center'});toast('Entre com seu PIN para receber os desafios.');return;}
+ $('online-inbox').classList.remove('hidden');
+ $('inbox-status').textContent='⏳ Consultando convites recebidos...';
+ try{await refreshInbox()}catch(e){$('inbox-status').textContent='⚠️ Falha ao carregar desafios: '+e.message}
+}
+async function onInboxAction(e){
+ const button=e.target.closest('button[data-action]');if(!button||onlineLoading)return;
+ const ch=onlineInbox.find(x=>x.id===button.dataset.id);if(!ch)return;
+ button.disabled=true;
+ try{
+  if(button.dataset.action==='accept'){
+   const saved=await online.answer(ch.id,'accept');$('online-inbox').classList.add('hidden');
+   toast('✅ Desafio aceito! Veja os disparos do adversário e faça sua rodada.');await startMatch(saved);
+  }else if(button.dataset.action==='decline'){
+   await online.answer(ch.id,'decline');toast('Desafio recusado.');await refreshInbox();
+  }else if(button.dataset.action==='play'){
+   $('online-inbox').classList.add('hidden');await startMatch(ch);
+  }
+ }catch(error){toast('⚠️ '+error.message);button.disabled=false;}
+}
+async function startOnlineClient(){
+ showOnlineStatus();
+ if(!online.enabled)return;
+ try{
+  await online.connect();await online.list();showOnlineStatus();await refreshInbox();renderRanking();
+ }catch(error){online.state='error';showOnlineStatus();$('online-status').textContent='⚠️ Serviço online indisponível: '+error.message;}
 }
 
 // Interações do jogo.
