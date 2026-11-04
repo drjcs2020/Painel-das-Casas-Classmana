@@ -30,7 +30,18 @@ function selectHouse(k){
 function updateMode(){const v=$('mode').value;$('difficulty-label').classList.toggle('hidden',v!=='bot');$('rival-label').classList.toggle('hidden',v!=='challenge')}
 function byId(id){return choices(id?.[0]||'A').find(x=>x.id===id)?.name||'Arqueiro '+id}
 function nameOf(id){return id==='guest'?'Arqueiro convidado':byId(id)}
-function uiHud(){if(!match)return;$('hud-player').textContent=match.player+' · '+H[match.house].grade;$('hud-bot').textContent=match.mode==='bot'?'🤖 Robô · '+({easy:'Fácil',medium:'Médio',hard:'Difícil'}[match.difficulty]):match.mode==='practice'?'🎯 Treinamento':match.incoming?'⚔️ '+byId(match.incoming.playerId):'⚔️ '+byId(match.rivalId);$('hud-score').textContent=match.scores.reduce((a,b)=>a+b,0);$('hud-rival').textContent=match.incoming?match.incoming.score:match.mode==='bot'?'?':'—';$('wind').textContent='🌬 VENTO '+(match.wind>=0?'+':'')+match.wind.toFixed(1)+' km/h';$('distance').textContent='🎯 '+Math.round(match.distance)+' METROS';$('shots').textContent='🏹 FLECHA '+Math.min(match.scores.length+1,5)+' / 5';$('power').textContent='⚡ FORÇA '+(holding?Math.round(clamp((Date.now()-pointerStart)/950,.2,1)*100):0)+'%';}
+function renderWind(wind){
+ const widget=$('wind');if(!widget)return;
+ const speed=Math.abs(wind),still=speed<0.15,left=wind<0;
+ widget.classList.toggle('wind-left',!still&&left);
+ widget.classList.toggle('wind-right',!still&&!left);
+ widget.classList.toggle('wind-calm',still);
+ widget.querySelector('.wind-speed').textContent=speed.toFixed(1).replace('.',',')+' km/h';
+ const direction=still?'SEM DESVIO':left?'DESVIA À ESQUERDA':'DESVIA À DIREITA';
+ widget.querySelector('.wind-direction-text').textContent=direction;
+ widget.setAttribute('aria-label','Vento: '+speed.toFixed(1).replace('.',',')+' quilômetros por hora. '+direction.toLowerCase()+'.');
+}
+function uiHud(){if(!match)return;$('hud-player').textContent=match.player+' · '+H[match.house].grade;$('hud-bot').textContent=match.mode==='bot'?'🤖 Robô · '+({easy:'Fácil',medium:'Médio',hard:'Difícil'}[match.difficulty]):match.mode==='practice'?'🎯 Treinamento':match.incoming?'⚔️ '+byId(match.incoming.playerId):'⚔️ '+byId(match.rivalId);$('hud-score').textContent=match.scores.reduce((a,b)=>a+b,0);$('hud-rival').textContent=match.incoming?match.incoming.score:match.mode==='bot'?'?':'—';renderWind(match.wind);$('distance').textContent='🎯 '+Math.round(match.distance)+' METROS';$('shots').textContent='🏹 FLECHA '+Math.min(match.scores.length+1,5)+' / 5';$('power').textContent='⚡ FORÇA '+(holding?Math.round(clamp((Date.now()-pointerStart)/950,.2,1)*100):0)+'%';}
 function worldSettings(){return {distance:match?.distance||25,shift:match?.shift||0,house:match?.house||house}}
 function ensureScene(){if(!scene)scene=initScene($('world'),worldSettings);scene.setHouse(house)}
 function changeTarget(){if(!match)return;match.distance=24+match.scores.length*2.3;match.shift=Math.round(rand(-8,8))/100;match.wind=Math.round(rand(-4.0,4.0)*10)/10;scene?.setTargetShift(match.shift);uiHud();}

@@ -77,3 +77,39 @@ footer{border-top:1px solid #b9a063;color:#e1d0b2}
 
 /* Hide the old independent UI crosshair: the metal bow sight is the only reticle. */
 #playcross{display:none!important}
+
+/* Indicador de vento ampliado. A seta sempre aponta para o lado do DESVIO da flecha.
+   Vento positivo move o impacto para a direita; vento negativo, para a esquerda. */
+#wind.wind-widget{
+ display:flex;flex-direction:column;justify-content:center;
+ gap:7px;min-width:238px;min-height:99px;
+ padding:11px 14px!important;border:2px solid #f9d783!important;
+ background:linear-gradient(145deg,rgba(14,33,38,.97),rgba(28,35,28,.97));
+ box-shadow:0 5px 22px #000a,0 0 16px rgba(244,204,91,.20);
+}
+#wind .wind-caption{display:flex;align-items:center;justify-content:space-between;gap:9px;
+ color:#ffdc8d;font-weight:900;font-size:12px;letter-spacing:.8px}
+#wind .wind-speed{color:#fffbe7;font-size:21px;font-weight:1000;white-space:nowrap;
+ font-variant-numeric:tabular-nums;text-shadow:0 2px 4px #000}
+#wind .wind-main{display:flex;align-items:center;gap:8px;min-height:38px}
+#wind .wind-arrow{display:block;width:81px;height:38px;flex-shrink:0;
+ color:#ffe17a;filter:drop-shadow(0 0 8px #ffd35f);transition:transform .18s ease}
+#wind.wind-left .wind-arrow{transform:rotate(180deg)}
+#wind.wind-right .wind-arrow{transform:rotate(0deg)}
+#wind.wind-calm .wind-arrow{opacity:.23;filter:none}
+#wind .wind-direction-text{font-size:13px;font-weight:1000;line-height:1.1;letter-spacing:.35px;
+ color:#ffebae;text-shadow:0 2px 2px #000;max-width:114px}
+@media(max-width:850px){
+ #wind.wind-widget{min-width:177px;min-height:80px;padding:7px 9px!important;gap:3px}
+ #wind .wind-caption{font-size:10px}
+ #wind .wind-speed{font-size:15px}
+ #wind .wind-main{gap:4px;min-height:29px}
+ #wind .wind-arrow{width:54px;height:27px}
+ #wind .wind-direction-text{font-size:10px;max-width:91px}
+}
+@media(max-width:400px){
+ #wind.wind-widget{min-width:150px;min-height:71px;padding:6px!important}
+ #wind .wind-speed{font-size:13px}
+ #wind .wind-arrow{width:44px;height:24px}
+ #wind .wind-direction-text{font-size:9px;max-width:80px}
+}
