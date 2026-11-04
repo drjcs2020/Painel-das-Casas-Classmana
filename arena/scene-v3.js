@@ -66,7 +66,7 @@ export function initScene(canvas, getSettings) {
     ctx.beginPath();ctx.arc(m.x,m.y,m.r*.07,0,Math.PI*2);ctx.strokeStyle='#9d682b';ctx.lineWidth=1.4;ctx.stroke();
     ctx.save();ctx.translate(m.x,m.y);for(let i=0;i<64;i++){const a=i*Math.PI*2/64;ctx.strokeStyle=i%3?'rgba(255,212,114,.43)':'rgba(81,46,17,.46)';ctx.lineWidth=i%2?2.2:1.3;ctx.beginPath();ctx.moveTo(Math.cos(a)*m.r*1.03,Math.sin(a)*m.r*1.03);ctx.lineTo(Math.cos(a+.055)*m.r*1.13,Math.sin(a+.055)*m.r*1.13);ctx.stroke();}ctx.restore();
     // Modern recurve bow with metallic grooves, not a wooden longbow.
-    const bx=w*.63+(aimX-.5)*w*.038, by=h*.53+(aimY-.5)*h*.043,
+    const bx=w*.63+(aimX-.5)*w*.40, by=h*.53+(aimY-.5)*h*.58,
        size=h*.89, bend=Math.sin(time/1600)*1.3;
     const bladeTop={x:bx-12,y:by-size*.58},bladeBottom={x:bx-10,y:by+size*.58};
     ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
@@ -75,10 +75,10 @@ export function initScene(canvas, getSettings) {
     ctx.strokeStyle=metal;ctx.lineWidth=22;ctx.stroke();ctx.strokeStyle=p.trim;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(bx+3,by-size*.34);ctx.lineTo(bx+5,by-size*.08);ctx.moveTo(bx+5,by+size*.18);ctx.lineTo(bx+1,by+size*.37);ctx.stroke();
     // Drawn string, rings of an actual circular front sight.
     const pull=power*size*.07;ctx.strokeStyle='#1b1c20';ctx.lineWidth=2.3;ctx.beginPath();ctx.moveTo(bladeTop.x,bladeTop.y);ctx.lineTo(bx+pull+5,by);ctx.lineTo(bladeBottom.x,bladeBottom.y);ctx.stroke();
-    const sightX=bx-115,sightY=by-size*.03,sightR=size*.087;
-    ctx.strokeStyle='#121a1b';ctx.lineWidth=8;ctx.beginPath();ctx.moveTo(bx-13,sightY);ctx.lineTo(sightX+sightR,sightY);ctx.stroke();
-    ctx.beginPath();ctx.arc(sightX,sightY,sightR,0,Math.PI*2);ctx.strokeStyle='#26292d';ctx.lineWidth=9;ctx.stroke();
-    ctx.strokeStyle=p.trim;ctx.lineWidth=2;ctx.beginPath();ctx.arc(sightX,sightY,sightR-5,0,Math.PI*2);ctx.stroke();
+    const sightX=bx-115,sightY=by-size*.03,sightR=size*.055;
+    ctx.strokeStyle='#25292d';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(bx-13,sightY);ctx.lineTo(sightX+sightR,sightY);ctx.stroke();
+    ctx.beginPath();ctx.arc(sightX,sightY,sightR,0,Math.PI*2);ctx.strokeStyle='#26292d';ctx.lineWidth=4.2;ctx.stroke();
+    ctx.strokeStyle=p.trim;ctx.lineWidth=1.3;ctx.beginPath();ctx.arc(sightX,sightY,sightR-3,0,Math.PI*2);ctx.stroke();
     ctx.strokeStyle='rgba(230,239,240,.7)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(sightX-sightR+7,sightY);ctx.lineTo(sightX+sightR-7,sightY);ctx.moveTo(sightX,sightY-sightR+7);ctx.lineTo(sightX,sightY+sightR-7);ctx.stroke();
     // Shared black arrow, white/red feathers. Drawn from nocking point toward the target.
     ctx.strokeStyle='#11151d';ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(bx+pull+140,by+110);ctx.lineTo(bx-48,by-38);ctx.stroke();
@@ -239,13 +239,13 @@ export function initScene(canvas, getSettings) {
     tube('bow-trim lower line',[[.062,-.2,-.028],[.118,-.90,-.021],[.04,-1.36,.025]],[.01,.011,.007],gold,bowRoot);
     const grip=primitive('cylinder','ergonomic dark handgrip',[.03,-.12,-.08],[.17,.43,.13],dark,bowRoot,[0,0,90]);
     // Sight rig: ring placed left of riser, towards player, distinct from 2D crosshair.
-    tube('sight bridge',[[-.02,.25,-.08],[-.18,.25,-.08],[-.33,.25,-.08]],[.025,.022,.018],dark,bowRoot);
-    const sight=new pc.Entity('Circle aiming sight');sight.setLocalPosition(-.44,.25,-.08);bowRoot.addChild(sight);
-    circleMesh('sight black metal ring',.145,.014,dark,sight);
-    circleMesh('sight gilded inner rim',.126,.004,gold,sight);
-    tube('sight vertical line',[[0,-.11,.003],[0,0,.003],[0,.11,.003]],[.002,.002,.002],silver,sight,5);
-    tube('sight horizontal line',[[-.11,0,.003],[0,0,.003],[.11,0,.003]],[.002,.002,.002],silver,sight,5);
-    primitive('sphere','sight central dot',[0,0,.005],[.018,.018,.018],red,sight);
+    tube('sight bridge',[[-.02,.25,-.08],[-.25,.25,-.08],[-.52,.25,-.08]],[.013,.012,.009],dark,bowRoot);
+    const sight=new pc.Entity('Circle aiming sight');sight.setLocalPosition(-.55,.25,-.08);bowRoot.addChild(sight);
+    circleMesh('sight black metal ring',.088,.007,dark,sight);
+    circleMesh('sight gilded inner rim',.078,.0026,gold,sight);
+    tube('sight vertical line',[[0,-.044,.003],[0,0,.003],[0,.044,.003]],[.0009,.0009,.0009],silver,sight,5);
+    tube('sight horizontal line',[[-.044,0,.003],[0,0,.003],[.044,0,.003]],[.0009,.0009,.0009],silver,sight,5);
+    primitive('sphere','sight central dot',[0,0,.005],[.006,.006,.006],red,sight);
     // A single arrow asset: its colors DO NOT change when changing House.
     arrowLoaded=new pc.Entity('Shared red-and-white arrow');bowRoot.addChild(arrowLoaded);arrowLoaded.setLocalPosition(.02,-.03,-.40);
     tube('black arrow shaft',[[0,0,.53],[0,0,.18],[0,0,-.65]],[.012,.012,.011],dark,arrowLoaded,12);
@@ -263,10 +263,12 @@ export function initScene(canvas, getSettings) {
     if(targetRoot)moveTarget();
     if(bowRoot){
       const dx=(aimX-.5),dy=(aimY-.46),t=performance.now()*0.001;
-      bowRoot.setLocalPosition(.61+dx*.12,-.28-dy*.18,-2.08-.10*power);
-      bowRoot.setLocalEulerAngles(-dy*9,dx*8,Math.sin(t*1.7)*.18);
-      if(arrowLoaded)arrowLoaded.setLocalPosition(.02,-.03,-.40+.15*power);
-      if(bowString)bowString.setLocalPosition(0,0,.07*power);
+      const desired=new pc.Vec3(.61+dx*1.10,-.28-dy*.86,-2.08-.12*power);
+      const eased=new pc.Vec3().lerp(bowRoot.getLocalPosition(),desired,clamp(dt*15,0,1));
+      bowRoot.setLocalPosition(eased);
+      bowRoot.setLocalEulerAngles(-dy*17,-dx*15,Math.sin(t*1.7)*.18);
+      if(arrowLoaded)arrowLoaded.setLocalPosition(.02,-.03,-.40+.36*power);
+      if(bowString)bowString.setLocalPosition(0,0,.19*power);
     }
     if(projectile&&pendingShot){const s=pendingShot;s.elapsed+=dt;const t=clamp(s.elapsed/s.duration,0,1);
       const eased=t*t*(3-2*t);const pos=new pc.Vec3().lerp(s.start,s.end,eased);
