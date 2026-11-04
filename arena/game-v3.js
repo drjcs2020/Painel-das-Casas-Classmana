@@ -220,8 +220,36 @@ function decode(s){const b=s.replace(/-/g,'+').replace(/_/g,'/');const raw=atob(
 function createLink(){if(!match)return;const total=match.scores.reduce((a,b)=>a+b,0);let d=match.incoming?{v:2,complete:true,a:{house:match.incoming.house,id:match.incoming.playerId,score:match.incoming.score},b:{house:match.house,id:match.playerId,score:total}}:{v:2,playerId:match.playerId,house:match.house,rivalId:match.rivalId,score:total,seed:match.seed};return `${location.href.split('#')[0]}#duel=${encode(d)}`;}
 async function share(){const link=createLink();try{await navigator.clipboard.writeText(link);toast('Link copiado! Envie ao outro arqueiro.')}catch{window.prompt('Copie o link do desafio:',link)}}
 function processLink(){try{const h=location.hash;if(!h.startsWith('#duel='))return;const d=decode(h.slice(6));if(d.v!==2)return;if(d.complete){toast('Resultado compartilhado: '+d.a.score+' × '+d.b.score+' pontos.');location.hash='';return}if(typeof d.playerId!=='string'||typeof d.rivalId!=='string'||!H[d.house]||!H[d.rivalId[0]]||d.playerId===d.rivalId||!Number.isInteger(d.score)||d.score<0||d.score>50||!choices(d.house).some(x=>x.id===d.playerId)||!choices(d.rivalId[0]).some(x=>x.id===d.rivalId))return;incoming=d;selectHouse(d.rivalId[0]);$('player').value=d.rivalId;$('mode').value=d.house===d.rivalId[0]?'challenge_same':'challenge';updateMode();$('rival-label').classList.add('hidden');$('difficulty-label').classList.add('hidden');toast('⚔️ Desafio recebido de '+byId(d.playerId)+' — '+d.score+' pontos!');$('hero-play').textContent='⚔️ ACEITAR O DESAFIO';}catch(e){console.warn('Desafio inválido',e)}}
-function renderRanking(){const points=new Map();for(const e of storage){if(!H[e.house]||!e.id||!Number.isFinite(e.score))continue;const p=points.get(e.id)||{id:e.id,house:e.house,total:0,plays:0,wins:0,best:0};p.total+=e.score;p.plays++;p.best=Math.max(p.best,e.score);if(e.win)p.wins++;points.set(e.id,p)}const ranked=[...points.values()].sort((a,b)=>b.total-a.total);const byH=Object.keys(H).map(k=>{const ps=ranked.filter(p=>p.house===k);return{k,n:ps.length,total:ps.reduce((a,b)=>a+b.total,0),average:ps.length?Math.round(ps.reduce((a,b)=>a+b.total/b.plays,0)/ps.length):0}}).sort((a,b)=>b.average-a.average);
- $('rank-houses').innerHTML=byH.map((a,i)=>`<div class="rankline"><div style="color:${H[a.k].color}"><b>${['🥇','🥈','🥉'][i]} ${H[a.k].name}</b><small>${a.n} arqueiro(s) com partidas neste navegador</small></div><span>${a.average?a.average+' pts médios':'Sem partidas'}</span></div>`).join('');$('rank-players').innerHTML=ranked.length?ranked.slice(0,15).map((p,i)=>`<div class="rankline"><div><b>${i+1}º · ${nameOf(p.id)}</b><small>${H[p.house].grade} · ${p.plays} partidas · melhor ${p.best} pts</small></div><span>${p.total} pts</span></div>`).join(''):'<div class="empty">Nenhuma partida registrada aqui ainda. Entre na arena e inaugure o placar!</div>'}
+const htmlSafe=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function renderRanking(){
+ const status=$('ranking-status');
+ if(!online.enabled){
+  status.textContent='⚠️ A planilha já foi criada, mas a API de classificação ainda não foi publicada. Nenhum resultado local é apresentado como ranking online.';
+  $('rank-houses').innerHTML='<div class="empty">Aguardando ativação do serviço online pelo professor.</div>';
+  $('rank-players').innerHTML='<div class="empty">Sem classificação online até a publicação da API.</div>';
+  return;
+ }
+ status.textContent='⏳ Consultando os resultados oficiais no Google Sheets...';
+ try{
+  const data=await online.ranking();
+  status.textContent='✅ Placar online — '+data.games+' desafios concluídos. Atualizado: '+new Date().toLocaleTimeString('pt-BR');
+  const classes=data.classes||[],teams=data.teams||[],players=data.players||[];
+  const groups=scoreTab==='teams'?teams:classes;
+  $('rank-houses').innerHTML=groups.map((row,i)=>`<div class="rankline">
+   <div><b>${['🥇','🥈','🥉'][i]||'🏹'} ${htmlSafe(H[row.name]?.name||row.name)}</b>
+   <small>${row.members||0} integrantes · ${row.plays||0} participações</small></div>
+   <span>${row.wins||0} vitórias</span></div>`).join('')||'<div class="empty">Nenhum duelo encerrado.</div>';
+  $('rank-players').innerHTML=players.slice(0,25).map((p,i)=>`<div class="rankline">
+   <div><b>${i+1}º · ${htmlSafe(p.name)}</b>
+   <small>${htmlSafe(H[p.house]?.grade||p.house)} · ${htmlSafe(p.team)} · ${p.plays||0} partidas</small></div>
+   <span>${p.wins||0} V · ${p.total||0} pts</span></div>`).join('')||'<div class="empty">Nenhum desafio concluído ainda.</div>';
+ }catch(err){
+  status.textContent='⚠️ Não foi possível consultar o placar: '+err.message;
+  $('rank-houses').innerHTML='<div class="empty">Placar temporariamente indisponível.</div>';
+  $('rank-players').innerHTML='<div class="empty">Os resultados permanecem no servidor; tente novamente.</div>';
+ }
+}
+
 // Interações do jogo.
 document.querySelectorAll('.nav-link').forEach(el=>el.addEventListener('click',()=>openView(el.dataset.view)));
 document.querySelectorAll('.house').forEach(el=>el.addEventListener('click',()=>selectHouse(el.dataset.house)));
