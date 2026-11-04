@@ -59,7 +59,7 @@ function renderWind(wind){
  widget.querySelector('.wind-direction-text').textContent=direction;
  widget.setAttribute('aria-label','Vento: '+speed.toFixed(1).replace('.',',')+' quilômetros por hora. '+direction.toLowerCase()+'.');
 }
-function uiHud(){if(!match)return;$('hud-player').textContent=match.player+' · '+H[match.house].grade;$('hud-bot').textContent=match.mode==='bot'?'🤖 Robô · '+({easy:'Fácil',medium:'Médio',hard:'Difícil'}[match.difficulty]):match.mode==='practice'?'🎯 Treinamento':match.incoming?'⚔️ '+byId(match.incoming.playerId):'⚔️ '+byId(match.rivalId);$('hud-score').textContent=match.scores.reduce((a,b)=>a+b,0);$('hud-rival').textContent=match.incoming?match.incoming.score:match.mode==='bot'?'?':'—';renderWind(match.wind);$('distance').textContent='🎯 '+Math.round(match.distance)+' METROS';$('shots').textContent='🏹 FLECHA '+Math.min(match.scores.length+1,5)+' / 5';$('power').textContent='⚡ FORÇA '+(holding?Math.round(clamp((Date.now()-pointerStart)/950,.2,1)*100):0)+'%';}
+function uiHud(){if(!match)return;$('hud-player').textContent=match.player+' · '+H[match.house].grade;$('hud-bot').textContent=match.mode==='bot'?'🤖 Robô · '+({easy:'Fácil',medium:'Médio',hard:'Difícil'}[match.difficulty]):match.mode==='practice'?'🎯 Treinamento':match.incoming?'⚔️ '+byId(match.incoming.playerId):'⚔️ '+byId(match.rivalId);$('hud-score').textContent=match.scores.reduce((a,b)=>a+b,0);$('hud-rival').textContent=match.onlineReplay?.length?(match.onlineReplayPoints||0):match.incoming?match.incoming.score:match.mode==='bot'?'?':'—';renderWind(match.wind);$('distance').textContent='🎯 '+Math.round(match.distance)+' METROS';$('shots').textContent='🏹 FLECHA '+Math.min(match.scores.length+1,5)+' / 5';$('power').textContent='⚡ FORÇA '+(holding?Math.round(clamp((Date.now()-pointerStart)/950,.2,1)*100):0)+'%';}
 function worldSettings(){return {distance:match?.distance||25,shift:match?.shift||0,house:match?.house||house}}
 function ensureScene(){if(!scene)scene=initScene($('world'),worldSettings);scene.setHouse(house)}
 function changeTarget(){
@@ -153,11 +153,68 @@ async function fire(power){
 
 function showHit(score,x,y){const el=$('hit');el.textContent=score?'+'+score+' PONTOS':'FORA DO ALVO';el.style.left=(x*100)+'%';el.style.top=clamp(y*100-12,18,64)+'%';el.classList.remove('show');void el.offsetWidth;el.classList.add('show')}
 function chooseRobotScore(difficulty,playerAverage){const base={easy:5.1,medium:6.7,hard:8.15}[difficulty],adjust=clamp((playerAverage-5.5)*.17,-.7,.7);let result=clamp(base+adjust+rand(-3.3,3.3),0,10);return result>=9.25?10:result>=7?8:result>=5?6:result>=3?4:result>=1.5?2:0;}
-function finishMatch(){if(!match)return;match.running=false;match.locked=true;const total=match.scores.reduce((a,b)=>a+b,0),bot=match.mode==='bot'?Array.from({length:5},()=>chooseRobotScore(match.difficulty,total/5)):[],rivalScore=match.mode==='bot'?bot.reduce((a,b)=>a+b,0):match.incoming?.score;
- let title='',desc='';if(match.mode==='practice'){title=total>=37?'MIRA LENDÁRIA!':'TREINAMENTO CONCLUÍDO';desc='Você conquistou '+total+' de 50 pontos nesta rodada.'}else if(isDuel(match.mode)&&!match.incoming){title='DESAFIO PREPARADO!';desc='Sua pontuação: '+total+' pontos. Compartilhe o link com o adversário.'}else{title=total>rivalScore?(match.mode==='challenge_same'?'VITÓRIA NO DUELO!':'VITÓRIA DA SUA CASA!'):total===rivalScore?'EMPATE HONROSO!':'A PRÓXIMA FLECHA SERÁ SUA!';desc='Você fez '+total+' pontos contra '+rivalScore+' pontos do adversário.'}
- $('finish-title').textContent=title;$('finish-desc').textContent=desc;$('finish-results').textContent=`🏹 ${total} PTS   ${rivalScore===undefined?'🏆 AGUARDANDO RIVAL':'⚔️ '+rivalScore+' PTS'}`;
- $('share-result').classList.toggle('hidden',!isDuel(match.mode));$('share-result').textContent=match.incoming?'🔗 COMPARTILHAR RESULTADO':'🔗 COPIAR DESAFIO';$('share-help').textContent=isDuel(match.mode)?'O link funciona em outro celular/computador, mas ainda não alimenta um ranking online automático.':'Rodada salva neste navegador.';
- if(match.playerId!=='guest')persist({house:match.house,id:match.playerId,score:total,mode:match.mode,win:rivalScore===undefined?null:total>rivalScore});if(isDuel(match.mode)&&match.incoming){persist({house:match.incoming.house,id:match.incoming.playerId,score:match.incoming.score,mode:'rival'});} $('finish').classList.remove('hidden');uiHud();}
+async function finishMatch(){
+ if(!match||match.scores.length<5)return;
+ const current=match;match.locked=true;const finish=$('finish');finish.classList.remove('hidden');
+ $('share-result').classList.add('hidden');
+ if(match.online){
+  $('finish-title').textContent='⏳ GRAVANDO RESULTADO NA PLANILHA...';
+  $('finish-desc').textContent='Seus disparos estão sendo validados e registrados no placar online.';
+  $('finish-results').textContent='🏹 5 / 5 FLECHAS';
+  try{
+   let response;
+   try{response=await online.submit(match.online.id,match.onlineShots);}
+   catch(err){
+    // If the server recorded the request but the connection dropped, read it back.
+    const state=await online.challenge(match.online.id);
+    const saved=current.playerId===state.creator.id?state.status==='PENDENTE'||state.status==='CONCLUIDO':state.status==='CONCLUIDO';
+    if(!saved)throw err;
+    response={score:current.playerId===state.creator.id?state.creatorScore:state.recipientScore,
+      shots:current.playerId===state.creator.id?state.creatorShots:state.recipientShots,challenge:state};
+   }
+   if(match!==current)return;
+   current.running=false;current.locked=true;current.onlineSaveFailed=false;
+   const ch=response.challenge,total=Number(response.score)||0;
+   current.scores=(response.shots||[]).map(x=>Number(x.score)||0);
+   const isCreator=current.playerId===ch.creator.id;
+   const rival=isCreator?ch.recipientScore:ch.creatorScore;
+   let title,desc;
+   if(isCreator&&rival===null){
+    title='🏹 DESAFIO ENVIADO!';
+    desc='Você fez '+total+' pontos. '+ch.recipient.name+' receberá um aviso quando entrar com o PIN e poderá aceitar ou recusar.';
+   }else{
+    title=total>rival?'🏆 VITÓRIA NO DESAFIO!':total===rival?'🤝 EMPATE HONROSO!':'🏹 CONTINUE TREINANDO!';
+    desc='Resultado salvo: '+total+' pontos contra '+rival+' pontos de '+(isCreator?ch.recipient.name:ch.creator.name)+'.';
+   }
+   $('finish-title').textContent=title;$('finish-desc').textContent=desc;
+   $('finish-results').textContent='🎯 VOCÊ '+total+' PTS   ⚔️ ADVERSÁRIO '+(rival===null?'AGUARDANDO':rival+' PTS');
+   $('share-help').textContent='✅ Resultado persistido na planilha online. Nenhum link manual é necessário.';
+   $('hud-score').textContent=total;$('hud-rival').textContent=rival===null?'—':rival;
+   refreshInbox().catch(console.warn);renderRanking().catch(console.warn);
+  }catch(error){
+   if(match!==current)return;current.onlineSaveFailed=true;current.running=true;
+   $('finish-title').textContent='⚠️ RESULTADO AINDA NÃO CONFIRMADO';
+   $('finish-desc').textContent='O servidor não confirmou a gravação: '+error.message;
+   $('finish-results').textContent='Suas cinco flechas permanecem nesta partida.';
+   $('share-help').textContent='Tente salvar novamente antes de sair da arena.';
+   $('share-result').classList.remove('hidden');$('share-result').textContent='🔄 TENTAR SALVAR NO PLACAR';
+  }
+  return;
+ }
+ current.running=false;
+ const total=match.scores.reduce((a,b)=>a+b,0),
+  bot=match.mode==='bot'?Array.from({length:5},()=>chooseRobotScore(match.difficulty,total/5)):[],
+  rivalScore=match.mode==='bot'?bot.reduce((a,b)=>a+b,0):undefined;
+ const title=match.mode==='practice'?(total>=37?'MIRA LENDÁRIA!':'TREINAMENTO CONCLUÍDO'):
+  total>rivalScore?'🏆 VITÓRIA SOBRE O ROBÔ!':total===rivalScore?'🤝 EMPATE!':'🏹 CONTINUE TREINANDO!';
+ $('finish-title').textContent=title;
+ $('finish-desc').textContent='Sua pontuação: '+total+' de 50 pontos nesta rodada.';
+ $('finish-results').textContent='🏹 '+total+' PTS   '+(rivalScore===undefined?'TREINO LIVRE':'🤖 ROBÔ '+rivalScore+' PTS');
+ $('share-help').textContent='Treino e partidas com robô ficam neste navegador; somente desafios validados entram no ranking oficial.';
+ if(match.playerId!=='guest')persist({house:match.house,id:match.playerId,score:total,mode:match.mode,win:rivalScore===undefined?null:total>rivalScore});
+ uiHud();
+}
+
 function encode(d){const s=JSON.stringify(d),arr=new TextEncoder().encode(s);let bs='';arr.forEach(v=>bs+=String.fromCharCode(v));return btoa(bs).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
 function decode(s){const b=s.replace(/-/g,'+').replace(/_/g,'/');const raw=atob(b);return JSON.parse(new TextDecoder().decode(Uint8Array.from(raw,c=>c.charCodeAt(0))))}
 function createLink(){if(!match)return;const total=match.scores.reduce((a,b)=>a+b,0);let d=match.incoming?{v:2,complete:true,a:{house:match.incoming.house,id:match.incoming.playerId,score:match.incoming.score},b:{house:match.house,id:match.playerId,score:total}}:{v:2,playerId:match.playerId,house:match.house,rivalId:match.rivalId,score:total,seed:match.seed};return `${location.href.split('#')[0]}#duel=${encode(d)}`;}
