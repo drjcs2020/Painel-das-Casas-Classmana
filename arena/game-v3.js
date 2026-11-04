@@ -266,6 +266,7 @@ function showOnlineStatus(){
  $('online-status').classList.toggle('ok',ok);
  $('online-status').classList.toggle('error',!ok);
  $('online-account-name').textContent=user?'🏹 '+user.name+' · 4º '+user.house+' · '+user.team:'🔐 Perfil do arqueiro';
+ $('online-banner').textContent=ok?'🟢 PLACAR ONLINE ATIVO':'⚠️ TREINO LOCAL · ONLINE PENDENTE';
  $('online-status').textContent=!online.enabled?'⚠️ Banco criado; API do Google Apps Script ainda não ativada.':
    !ok?'⏳ Consultando o serviço online...':user?'✅ Conectado: resultados salvos na planilha online.':'✅ Ranking disponível. Entre com o PIN para receber desafios.';
  $('open-login').classList.toggle('hidden',!!user);
