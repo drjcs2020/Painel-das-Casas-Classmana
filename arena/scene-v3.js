@@ -143,6 +143,27 @@ export function initScene(canvas, getSettings) {
     }
     const t=new pc.Texture(app.graphicsDevice,{width:1024,height:1024,format:pc.PIXELFORMAT_RGBA8,mipmaps:true});t.setSource(c);return t;
   }
+  function terrainTexture(){
+    const c=document.createElement('canvas');c.width=c.height=512;const g=c.getContext('2d');
+    const colors={A:['#4a7c37','#70a94b','#244d2b'],B:['#66513b','#90764b','#352a28'],C:['#326d52','#579c6a','#203e37']}[currentHouse];
+    g.fillStyle=colors[0];g.fillRect(0,0,512,512);
+    let seed=14203;
+    const rand=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+    for(let i=0;i<8600;i++){
+      const x=rand()*512,y=rand()*512,alpha=.08+rand()*.24;
+      g.globalAlpha=alpha;g.fillStyle=colors[1+(i%2)];
+      if(currentHouse==='B'){g.fillRect(x,y,1+rand()*4,1+rand()*9);}
+      else{g.beginPath();g.moveTo(x,y);g.lineTo(x-2+rand()*4,y-3-rand()*10);g.strokeStyle=colors[1+i%2];g.lineWidth=.5+rand()*1.4;g.stroke();}
+    }
+    if(currentHouse==='B'){
+      for(let j=0;j<28;j++){
+        let x=rand()*512,y=rand()*512;g.strokeStyle='#2d2421';g.lineWidth=1+rand()*2;g.beginPath();g.moveTo(x,y);
+        for(let k=0;k<7;k++)g.lineTo(x+(k+1)*7,y+Math.sin(k*1.3+j)*8);g.stroke();
+      }
+    }
+    g.globalAlpha=1;
+    const t=new pc.Texture(app.graphicsDevice,{width:512,height:512,format:pc.PIXELFORMAT_RGBA8,mipmaps:true});t.setSource(c);return t;
+  }
   function colorBow(){if(!bowRoot)return;
     const p=palettes[currentHouse];const body=material(p.body,{metal:.72,rough:.20}),trim=material(p.trim,{metal:.83,rough:.20});
     for(const e of bowRoot.findComponents('render')){
@@ -180,9 +201,16 @@ export function initScene(canvas, getSettings) {
     primitive('plane','competition target textile',[0,0,.052],[2.68,1,2.68],tm,d,[90,0,0]);
     primitive('cylinder','target center brass pin',[0,0,.085],[.07,.027,.07],metals.rope,d,[90,0,0]);
     // Cast shadow and rich near-field environment, no primitive cube/cone trees.
-    const grass=material('#527e31',{rough:.98});
-    const ground=primitive('plane','grassy firing lane',[0,-.14,-6],[32,1,34],grass,root());
-    ground.enabled=false; // Photo-mapped terrain beneath stays vivid; 3D path / decor on top.
+    // Textured 3D firing ground anchors the camera and target in physical space;
+    // the high-detail Kingdom painting remains the distant environment/sky.
+    const fieldTexture=terrainTexture();
+    const grass=new pc.StandardMaterial();grass.diffuse=new pc.Color(1,1,1);grass.diffuseMap=fieldTexture;
+    grass.diffuseMapTiling=new pc.Vec2(3,4);grass.metalness=0;grass.gloss=4;grass.update();
+    primitive('plane','procedural textured playing field',[0,-.28,-7],[40,1,36],grass);
+    const line=material(currentHouse==='B'?'#d48e54':'#dddab4',{rough:.87});
+    for(const side of [-1,1])tube('range boundary stripe '+side,[[side*2.85,-.245,6],[side*2.0,-.245,-1],[side*1.15,-.245,-11]],
+      [.023,.022,.017],line,root(),7);
+
     const brass=material('#dba84d',{metal:.65,rough:.23});
     const rocks=material('#56574d',{rough:.93});
     for(let side of [-1,1])for(let i=0;i<3;i++){
