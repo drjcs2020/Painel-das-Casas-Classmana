@@ -71,6 +71,9 @@ footer{border-top:1px solid #b9a063;color:#e1d0b2}
 @media(max-width:850px){.page{padding:0 12px}.nav-bar{padding:0 9px}.stage{height:70vh;min-height:470px;max-height:690px}.scene-badge{bottom:51px;left:6px;padding:4px 7px}.scene-badge img{width:25px;height:25px}.scene-badge strong{font-size:10px}.hud-pill{padding:6px;font-size:10px}.game-top-left,.game-top-right{top:7px}}
 @media(max-width:550px){.stage{height:70vh;min-height:420px}.scene-badge{max-width:138px}.scene-badge small{font-size:8px}.scene-badge strong{font-size:9px}.game-top-left .hud-pill,.game-top-right .hud-pill{font-size:9px}.banner-bottom{font-size:9px}.battle-hud{padding:8px 5px}.battle-hud strong{font-size:11px}.ready{font-size:8px}}
 /* Controles: os painéis não devem interceptar o gesto de mira e disparo. */
-#world{touch-action:none;cursor:crosshair;user-select:none;-webkit-user-select:none}
+#world{touch-action:none;cursor:none;user-select:none;-webkit-user-select:none}
 .game-top-left,.game-top-right,.instruction,.playcross{pointer-events:none}
 .stage.aiming #world{cursor:grabbing}
+
+/* Hide the old independent UI crosshair: the metal bow sight is the only reticle. */
+#playcross{display:none!important}
