@@ -1,4 +1,4 @@
-import {initScene} from './scene-v3.js?v=4';
+import {initScene} from './scene-v3.js?v=5';
 const $=id=>document.getElementById(id);
 const H={A:{grade:'4º A',name:'Águia Dourada',color:'#78bdff'},B:{grade:'4º B',name:'Leão de Fogo',color:'#ff9778'},C:{grade:'4º C',name:'Dragão de Esmeralda',color:'#8defac'}};
 const R=window.CLASSMANA_ROSTER||{A:[],B:[],C:[]};
@@ -44,7 +44,10 @@ function startMatch(){
  reticle={x:.50,y:.45};$('finish').classList.add('hidden');$('instruction').textContent='MOVA OU ARRASTE PARA MIRAR • SEGURE PARA PUXAR • SOLTE PARA ATIRAR';
  openView('arena');ensureScene();changeTarget();updateReticle();
 }
-function updateReticle(){const el=$('playcross');el.style.left=(reticle.x*100)+'%';el.style.top=(reticle.y*100)+'%';scene?.setAim(reticle.x,reticle.y)}
+function updateReticle(){
+  // Mouse/touch drives the bow. There is no second, independent crosshair.
+  scene?.setAim(reticle.x,reticle.y);
+}
 function aim(e){const rect=$('stage').getBoundingClientRect();reticle.x=clamp((e.clientX-rect.left)/rect.width,.08,.95);reticle.y=clamp((e.clientY-rect.top)/rect.height,.11,.91);updateReticle()}
 function levelScore(x,y,r){const norm=Math.hypot(x,y)/r;return norm>1?0:Math.max(1,10-Math.floor(norm*10))}
 async function fire(power){
@@ -52,11 +55,16 @@ async function fire(power){
  const currentMatch=match;match.locked=true;holding=false;$('stage').classList.remove('aiming');
  const w=$('stage').clientWidth,h=$('stage').clientHeight;
  const t=scene?.getTargetMetrics?.()||{x:w*(.5+match.shift),y:h*.45,r:Math.min(h*.105,w*.082)};
- // Wind causes lateral drift. Lower draw strength increases vertical drop.
+ // Use the exact visible centre of the ring attached to the bow, NOT the mouse.
+ const sight=scene?.getAimPoint?.();
+ if(!sight||!Number.isFinite(sight.x)||!Number.isFinite(sight.y)){
+   match.locked=false;return toast('A mira ainda não está pronta.');
+ }
+ // Wind and low draw strength change the impact relative to that sight.
  const drift=match.wind*t.r*.040;
  const jitter=(1-power)*t.r*.14;
- const ix=reticle.x*w+drift+rand(-.08,.08)*jitter;
- const iy=reticle.y*h+(1-power)*t.r*.70+rand(-.06,.06)*jitter;
+ const ix=sight.x*w+drift+rand(-.08,.08)*jitter;
+ const iy=sight.y*h+(1-power)*t.r*.70+rand(-.06,.06)*jitter;
  const score=levelScore(ix-t.x,iy-t.y,t.r);
  $('stage').classList.add('firing');
  try{await Promise.race([scene?.fire?.({x:ix/w,y:iy/h,power}),new Promise(resolve=>setTimeout(resolve,1100))]);}catch(e){console.warn('Animação da flecha:',e);}
