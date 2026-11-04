@@ -24,3 +24,12 @@ O multiplayer está em **desafios assíncronos por link**, sem validação de id
 `game-v3.js` controla as rodadas e as interações. `scene-v3.js` contém o motor visual 3D com fallback. `v3.css` substitui a estética antiga de fundo azul.
 
 No futuro os GLBs produzidos na ferramenta de modelagem poderão substituir os modelos dinâmicos presentes em `scene-v3.js` quando tiverem sido **exportados e disponibilizados dentro do repositório**. Eles ainda não estão hospedados no GitHub nesta versão.
+
+
+## Desafios entre alunos (modos disponíveis)
+
+- **Mesma turma / mesma Casa:** escolha seu arqueiro e outro colega do mesmo 4º A, 4º B ou 4º C. O próprio aluno não pode ser selecionado como adversário.
+- **Casa rival:** escolha um estudante de uma Casa diferente da sua.
+- Nos dois casos, cada participante realiza **cinco disparos**, em momentos diferentes. O primeiro aluno termina, toca em **Copiar desafio** e envia o link ao colega. O segundo abre o link destinado a ele, joga e pode compartilhar o resultado.
+- **Limites atuais:** não há partida em tempo real, login de identidade verificada, envio de notificações, banco de dados online ou ranking geral sincronizado. Os dados transmitidos por links podem ser editados e não servem como comprovação oficial de campeonato.
+
