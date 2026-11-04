@@ -87,13 +87,36 @@ try{
 return cmOp_(db,req,token,result)
 }
 function doPost(e){return cmReply_(cmWithLock_(()=>{try{return cmDo_(e)}catch(err){return{ok:false,error:String(err.message||err)}}}),null)}
-function cmRank_(db){const students=cmPublicRoster_(db),scoreMap={};students.forEach(s=>scoreMap[s.id]={...s,plays:0,wins:0,ties:0,losses:0,total:0,last:''});
-const games=cmChallenges_(db).map(x=>x.data).filter(c=>String(c[4])===CM_STATUS.CONCLUIDO);
-for(const c of games){const a=scoreMap[c[2]],b=scoreMap[c[3]],sa=Number(c[9]),sb=Number(c[10]);if(!a||!b)continue;
-for(const [x,s,opp] of [[a,sa,sb],[b,sb,sa]]){x.plays++;x.total+=s;x.last=String(c[8]);if(s>opp)x.wins++;else if(s===opp)x.ties++;else x.losses++;}}
-const players=Object.values(scoreMap).filter(x=>x.plays).map(x=>({...x,avg:Math.round(x.total/x.plays*10)/10})).sort((a,b)=>b.wins-a.wins||b.total-a.total);
-const group=(field)=>{const map={};for(const p of Object.values(scoreMap)){let key=p[field],g=map[key]||(map[key]={name:key,members:0,plays:0,wins:0,ties:0,losses:0,total:0});g.members++;g.plays+=p.plays;g.wins+=p.wins;g.ties+=p.ties;g.losses+=p.losses;g.total+=p.total;}return Object.values(map).sort((a,b)=>b.wins-a.wins||b.total-a.total)};
-return {players,teams:group('team'),classes:group('house'),games:games.length,updated:cmNow_()}}
+function cmRank_(db){
+ const students=cmPublicRoster_(db),scoreMap={};
+ students.forEach(s=>scoreMap[s.id]={...s,plays:0,wins:0,ties:0,losses:0,total:0,last:''});
+ const games=cmChallenges_(db).map(x=>x.data).filter(c=>String(c[4])===CM_STATUS.CONCLUIDO);
+ for(const c of games){
+  const a=scoreMap[c[2]],b=scoreMap[c[3]],sa=Number(c[9]),sb=Number(c[10]);if(!a||!b)continue;
+  for(const [x,s,opp] of [[a,sa,sb],[b,sb,sa]]){
+   x.plays++;x.total+=s;x.last=String(c[8]);
+   if(s>opp)x.wins++;else if(s===opp)x.ties++;else x.losses++;
+  }
+ }
+ const players=Object.values(scoreMap).filter(x=>x.plays)
+  .map(x=>({...x,avg:Math.round(x.total/x.plays*10)/10}))
+  .sort((a,b)=>b.wins-a.wins||b.total-a.total);
+ // Team standings count only duels BETWEEN teams; class standings only
+ // INTERCLASS duels. Same-class duels never artificially boost class totals.
+ function modeGroups(type,field,kind){
+  const group={};students.forEach(s=>{const name=s[field];if(!group[name])group[name]={name,members:0,plays:0,wins:0,ties:0,losses:0,total:0};group[name].members++});
+  for(const c of games){if(c[1]!==type)continue;
+   const a=scoreMap[c[2]],b=scoreMap[c[3]];if(!a||!b||a[field]===b[field])continue;
+   const sa=Number(c[9]),sb=Number(c[10]);
+   for(const [s,pts,opp] of [[a,sa,sb],[b,sb,sa]]){
+    const g=group[s[field]];g.plays++;g.total+=pts;
+    if(pts>opp)g.wins++;else if(pts===opp)g.ties++;else g.losses++;
+   }
+  }
+  return Object.values(group).sort((a,b)=>b.wins-a.wins||b.total-a.total);
+ }
+ return {players,teams:modeGroups('entre_equipes','team'),classes:modeGroups('interclasses','house'),games:games.length,updated:cmNow_()};
+}
 function cmUpdateRank_(db){const rows=cmRank_(db).players;const sh=cmSheet_(db,'Ranking');if(sh.getLastRow()>1)sh.getRange(2,1,sh.getLastRow()-1,CM_COL.Ranking.length).clearContent();if(rows.length)sh.getRange(2,1,rows.length,CM_COL.Ranking.length).setValues(rows.map(p=>[p.id,p.name,'4º '+p.house,p.team,p.plays,p.wins,p.ties,p.losses,p.total,p.avg,p.last]));}
 function doGet(e){let p=e.parameter||{},o;try{const db=cmBook_(),action=String(p.action||'ranking'),token=String(p.token||'');if(action==='ping')o={ok:true,api:CM_V};
 else if(action==='ranking')o={ok:true,...cmRank_(db)};
