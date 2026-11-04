@@ -10,7 +10,7 @@ function safeRead(){try{const a=JSON.parse(localStorage.getItem('classmana-arche
 storage=safeRead();
 function persist(row){storage.push({...row,at:new Date().toISOString()});storage=storage.slice(-150);try{localStorage.setItem('classmana-archery-v2',JSON.stringify(storage))}catch{}renderRanking()}
 function toast(s){const t=$('toast');t.textContent=s;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),3100)}
-function openView(name){view=name;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));document.querySelectorAll('.nav-link').forEach(x=>x.classList.toggle('active',x.dataset.view===name));window.scrollTo({top:0,behavior:'instant'});if(name==='ranking')renderRanking()}
+function openView(name){if(name!=='arena'&&view==='arena'&&match?.running){match.running=false;match.locked=false;holding=false;$('stage').classList.remove('aiming','firing');scene?.setPower(0);}view=name;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));document.querySelectorAll('.nav-link').forEach(x=>x.classList.toggle('active',x.dataset.view===name));window.scrollTo({top:0,behavior:'instant'});if(name==='ranking')renderRanking()}
 function choices(h){return (R[h]||[]).map((name,i)=>({id:h+String(i+1).padStart(2,'0'),name}));}
 function fillPlayer(wanted){const sel=$('player');sel.innerHTML='<option value="guest">Arqueiro convidado</option>'+choices(house).map(p=>`<option value="${p.id}">${p.id} · ${p.name}</option>`).join('');if(wanted&&choices(house).some(x=>x.id===wanted))sel.value=wanted;fillRivals()}
 function fillRivals(){const sel=$('rival');let other=Object.keys(H).filter(h=>h!==house).flatMap(choices);sel.innerHTML=other.map(p=>`<option value="${p.id}">${H[p.id[0]].grade} · ${p.id} · ${p.name}</option>`).join('');if(incoming&&incoming.rivalId===sel.value){} }
@@ -35,13 +35,13 @@ function worldSettings(){return {distance:match?.distance||25,shift:match?.shift
 function ensureScene(){if(!scene)scene=initScene($('world'),worldSettings);scene.setHouse(house)}
 function changeTarget(){if(!match)return;match.distance=24+match.scores.length*2.3;match.shift=Math.round(rand(-8,8))/100;match.wind=Math.round(rand(-4.0,4.0)*10)/10;scene?.setTargetShift(match.shift);uiHud();}
 function startMatch(){
- if(match?.running){toast('Finalize a rodada antes de iniciar outra.');return}
+ if(match?.running){match.running=false;match.locked=false;holding=false;$('stage').classList.remove('aiming','firing');scene?.setPower(0);}
  const userId=$('player').value,mode=incoming?'challenge':$('mode').value,rivalId=incoming?.playerId||$('rival').value;
  if(mode==='challenge'&&userId==='guest'){toast('Selecione seu arqueiro para desafiar outra Casa.');return}
  if(incoming&&userId!==incoming.rivalId){toast('Este desafio é destinado a '+incoming.rivalId+'.');return}
  if(mode==='challenge'&&!incoming&&userId[0]===rivalId[0]){toast('O adversário deve ser de outra turma.');return}
  match={house,playerId:userId,player:nameOf(userId),mode,difficulty:$('difficulty').value,rivalId,scores:[],running:true,locked:false,wind:0,distance:25,shift:0,incoming:incoming?{...incoming}:null,seed:Math.floor(rand(100000,999999))};
- reticle={x:.50,y:.45};$('finish').classList.add('hidden');$('instruction').textContent='SEGURE PARA MIRAR • SOLTE PARA DISPARAR';
+ reticle={x:.50,y:.45};$('finish').classList.add('hidden');$('instruction').textContent='MOVA OU ARRASTE PARA MIRAR • SEGURE PARA PUXAR • SOLTE PARA ATIRAR';
  openView('arena');ensureScene();changeTarget();updateReticle();
 }
 function updateReticle(){const el=$('playcross');el.style.left=(reticle.x*100)+'%';el.style.top=(reticle.y*100)+'%';scene?.setAim(reticle.x,reticle.y)}
@@ -49,7 +49,7 @@ function aim(e){const rect=$('stage').getBoundingClientRect();reticle.x=clamp((e
 function levelScore(x,y,r){const norm=Math.hypot(x,y)/r;return norm>1?0:Math.max(1,10-Math.floor(norm*10))}
 async function fire(power){
  if(!match?.running||match.locked||match.scores.length>=5)return;
- match.locked=true;holding=false;$('stage').classList.remove('aiming');
+ const currentMatch=match;match.locked=true;holding=false;$('stage').classList.remove('aiming');
  const w=$('stage').clientWidth,h=$('stage').clientHeight;
  const t=scene?.getTargetMetrics?.()||{x:w*(.5+match.shift),y:h*.45,r:Math.min(h*.105,w*.082)};
  // Wind causes lateral drift. Lower draw strength increases vertical drop.
@@ -61,14 +61,14 @@ async function fire(power){
  $('stage').classList.add('firing');
  try{await Promise.race([scene?.fire?.({x:ix/w,y:iy/h,power}),new Promise(resolve=>setTimeout(resolve,1100))]);}catch(e){console.warn('Animação da flecha:',e);}
  $('stage').classList.remove('firing');
- if(!match||!match.running)return;
+ if(match!==currentMatch||!currentMatch.running)return;
  scene?.impact?.({x:ix/w,y:iy/h,score});
  match.scores.push(score);
  $('hud-score').textContent=match.scores.reduce((a,b)=>a+b,0);
  showHit(score,ix/w,iy/h);
  if(score===10)toast('🎯 ACERTO PERFEITO! +10 pontos');
- if(match.scores.length>=5){setTimeout(finishMatch,820)}
- else{setTimeout(()=>{if(match?.running){changeTarget();match.locked=false;}},640)}
+ if(match.scores.length>=5){setTimeout(()=>{if(match===currentMatch&&currentMatch.running)finishMatch()},820)}
+ else{setTimeout(()=>{if(match===currentMatch&&currentMatch.running){changeTarget();match.locked=false;}},640)}
 }
 function showHit(score,x,y){const el=$('hit');el.textContent=score?'+'+score+' PONTOS':'FORA DO ALVO';el.style.left=(x*100)+'%';el.style.top=clamp(y*100-12,18,64)+'%';el.classList.remove('show');void el.offsetWidth;el.classList.add('show')}
 function chooseRobotScore(difficulty,playerAverage){const base={easy:5.1,medium:6.7,hard:8.15}[difficulty],adjust=clamp((playerAverage-5.5)*.17,-.7,.7);let result=clamp(base+adjust+rand(-3.3,3.3),0,10);return result>=9.25?10:result>=7?8:result>=5?6:result>=3?4:result>=1.5?2:0;}
@@ -88,8 +88,8 @@ function renderRanking(){const points=new Map();for(const e of storage){if(!H[e.
 document.querySelectorAll('.nav-link').forEach(el=>el.addEventListener('click',()=>openView(el.dataset.view)));
 document.querySelectorAll('.house').forEach(el=>el.addEventListener('click',()=>selectHouse(el.dataset.house)));
 $('hero-play').addEventListener('click',()=>{if(incoming){startMatch();return}$('setup').scrollIntoView({behavior:'smooth',block:'center'});toast('Escolha seu arqueiro ou jogue como convidado!')});
-$('mode').addEventListener('change',updateMode);$('start-game').addEventListener('click',startMatch);$('rank-play').addEventListener('click',()=>openView('inicio'));$('rules-play').addEventListener('click',()=>openView('inicio'));$('leave-arena').addEventListener('click',()=>{if(match?.running){if(!confirm('Abandonar a rodada atual?'))return;match.running=false}openView('inicio')});$('play-again').addEventListener('click',()=>{match.running=false;startMatch()});$('share-result').addEventListener('click',share);
-const world=$('world');world.addEventListener('pointerdown',e=>{if(!match?.running||match.locked)return;e.preventDefault();world.setPointerCapture(e.pointerId);holding=true;pointerStart=Date.now();aim(e);scene?.setPower(.28);$('stage').classList.add('aiming')});world.addEventListener('pointermove',e=>{if(!match?.running||match.locked)return;if(holding||e.pointerType==='mouse')aim(e);if(holding)scene?.setPower(clamp((Date.now()-pointerStart)/950,.28,1))});world.addEventListener('pointerup',e=>{if(!holding)return;e.preventDefault();aim(e);holding=false;$('stage').classList.remove('aiming');const p=clamp((Date.now()-pointerStart)/950,.28,1);scene?.setPower(p);fire(p);uiHud()});world.addEventListener('pointercancel',()=>{holding=false;$('stage').classList.remove('aiming')});
+$('mode').addEventListener('change',updateMode);$('start-game').addEventListener('click',startMatch);$('rank-play').addEventListener('click',()=>openView('inicio'));$('rules-play').addEventListener('click',()=>openView('inicio'));$('leave-arena').addEventListener('click',()=>{if(match?.running&&!confirm('Abandonar a rodada atual e começar uma nova depois?'))return;openView('inicio')});$('play-again').addEventListener('click',()=>{match.running=false;startMatch()});$('share-result').addEventListener('click',share);
+const world=$('world');world.addEventListener('pointerdown',e=>{if(!match?.running||match.locked)return;e.preventDefault();world.setPointerCapture(e.pointerId);holding=true;pointerStart=Date.now();aim(e);scene?.setPower(.28);$('stage').classList.add('aiming');$('instruction').textContent='ARRASTE PARA MOVER O ARCO • SOLTE PARA ATIRAR'});world.addEventListener('pointermove',e=>{if(!match?.running||match.locked)return;if(holding||e.pointerType==='mouse')aim(e);if(holding)scene?.setPower(clamp((Date.now()-pointerStart)/950,.28,1))});world.addEventListener('pointerup',e=>{if(!holding)return;e.preventDefault();aim(e);holding=false;$('stage').classList.remove('aiming');$('instruction').textContent='MOVA OU ARRASTE PARA MIRAR • SEGURE PARA PUXAR • SOLTE PARA ATIRAR';const p=clamp((Date.now()-pointerStart)/950,.28,1);scene?.setPower(p);fire(p);uiHud()});world.addEventListener('pointercancel',()=>{holding=false;$('stage').classList.remove('aiming');scene?.setPower(0)});
 document.addEventListener('keydown',e=>{if(view!=='arena'||!match?.running||match.locked)return;let action=true;const step=e.shiftKey?.022:.008;switch(e.code){case'ArrowUp':reticle.y=clamp(reticle.y-step,.1,.9);break;case'ArrowDown':reticle.y=clamp(reticle.y+step,.1,.9);break;case'ArrowLeft':reticle.x=clamp(reticle.x-step,.08,.92);break;case'ArrowRight':reticle.x=clamp(reticle.x+step,.08,.92);break;case'Space':fire(1);break;default:action=false}if(action){e.preventDefault();updateReticle()}});
 setInterval(()=>{if(holding){scene?.setPower(clamp((Date.now()-pointerStart)/950,.28,1));uiHud()}},90);
 selectHouse('A');updateMode();processLink();renderRanking();
