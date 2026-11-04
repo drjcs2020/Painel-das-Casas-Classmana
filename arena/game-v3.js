@@ -39,6 +39,17 @@ function selectHouse(k){
  const stage=$('stage');stage.classList.remove('house-a','house-b','house-c');stage.classList.add('house-'+k.toLowerCase());
  const logo={A:'brasao-4a-transparente.png',B:'arte-028.png',C:'arte-029.png'}[k];
  const badge=$('stage-house-badge');if(badge){badge.dataset.house=k;badge.querySelector('img').src='../assets/images/'+logo;badge.querySelector('strong').textContent=H[k].name;}
+ const hero={
+  A:{portrait:'hero_fada.png',name:'Águia Dourada — 4º A',desc:'O guardião da floresta e dos ventos protege os arqueiros da Casa azul e dourada.'},
+  B:{portrait:'hero_chama.png',name:'Leão de Fogo — 4º B',desc:'As chamas do reino acompanham os arqueiros da Casa vermelha e dourada.'},
+  C:{portrait:'hero_dragao.png',name:'Dragão de Esmeralda — 4º C',desc:'O dragão protetor acompanha os arqueiros da Casa verde-esmeralda.'}
+ }[k];
+ const panel=$('hero-preview');if(panel){
+  panel.style.animation='none';void panel.offsetWidth;panel.style.animation='';
+  $('hero-preview-img').src='https://raw.githubusercontent.com/drjcs2020/classmana-batalha-dos-monstros-V2/main/assets/'+hero.portrait;
+  $('hero-preview-name').textContent=hero.name;
+  $('hero-preview-desc').textContent=hero.desc;
+ }
  scene?.setHouse(k);
  fillPlayer(incoming?.rivalId?.[0]===k?incoming.rivalId:null);
 }
