@@ -111,32 +111,46 @@ function aim(e){const rect=$('stage').getBoundingClientRect();reticle.x=clamp((e
 function levelScore(x,y,r){const norm=Math.hypot(x,y)/r;return norm>1?0:Math.max(1,10-Math.floor(norm*10))}
 async function fire(power){
  if(!match?.running||match.locked||match.scores.length>=5)return;
- const currentMatch=match;match.locked=true;holding=false;$('stage').classList.remove('aiming');
+ const currentMatch=match,shotIndex=match.scores.length;
+ match.locked=true;holding=false;$('stage').classList.remove('aiming');
  const w=$('stage').clientWidth,h=$('stage').clientHeight;
  const t=scene?.getTargetMetrics?.()||{x:w*(.5+match.shift),y:h*.45,r:Math.min(h*.105,w*.082)};
- // Use the exact visible centre of the ring attached to the bow, NOT the mouse.
  const sight=scene?.getAimPoint?.();
- if(!sight||!Number.isFinite(sight.x)||!Number.isFinite(sight.y)){
-   match.locked=false;return toast('A mira ainda não está pronta.');
- }
- // Wind and low draw strength change the impact relative to that sight.
- const drift=match.wind*t.r*.040;
- const jitter=(1-power)*t.r*.14;
+ if(!sight||!Number.isFinite(sight.x)||!Number.isFinite(sight.y)){match.locked=false;return toast('A mira ainda não está pronta.');}
+ const dx=(sight.x*w-t.x)/t.r,dy=(sight.y*h-t.y)/t.r;
+ // Round scores online are calculated again by Apps Script using these normalized offsets.
+ if(currentMatch.online)currentMatch.onlineShots.push({dx,dy,power});
+ const drift=match.wind*t.r*.040,fall=(1-power)*t.r*.70;
+ const jitter=match.online?0:(1-power)*t.r*.14;
  const ix=sight.x*w+drift+rand(-.08,.08)*jitter;
- const iy=sight.y*h+(1-power)*t.r*.70+rand(-.06,.06)*jitter;
+ const iy=sight.y*h+fall+rand(-.06,.06)*jitter;
  const score=levelScore(ix-t.x,iy-t.y,t.r);
  $('stage').classList.add('firing');
- try{await Promise.race([scene?.fire?.({x:ix/w,y:iy/h,power}),new Promise(resolve=>setTimeout(resolve,1100))]);}catch(e){console.warn('Animação da flecha:',e);}
+ try{await Promise.race([scene?.fire?.({x:ix/w,y:iy/h,power}),new Promise(resolve=>setTimeout(resolve,1050))]);}
+ catch(e){console.warn('Animação da flecha:',e)}
  $('stage').classList.remove('firing');
  if(match!==currentMatch||!currentMatch.running)return;
  scene?.impact?.({x:ix/w,y:iy/h,score});
- match.scores.push(score);
- $('hud-score').textContent=match.scores.reduce((a,b)=>a+b,0);
+ match.scores.push(score);$('hud-score').textContent=match.scores.reduce((a,b)=>a+b,0);
  showHit(score,ix/w,iy/h);
  if(score===10)toast('🎯 ACERTO PERFEITO! +10 pontos');
- if(match.scores.length>=5){setTimeout(()=>{if(match===currentMatch&&currentMatch.running)finishMatch()},820)}
- else{setTimeout(()=>{if(match===currentMatch&&currentMatch.running){changeTarget();match.locked=false;}},640)}
+ // Opponent does not need to be present: replay their 5 recorded arrows now.
+ const ghost=match.onlineReplay?.[shotIndex];
+ if(ghost&&match.online){
+  $('instruction').textContent='🏹 DISPARO DO ADVERSÁRIO • RECONSTITUIÇÃO DA RODADA SALVA';
+  const px=(t.x+ghost.impactDx*t.r)/w,py=(t.y+ghost.impactDy*t.r)/h;
+  try{await Promise.race([scene?.fire?.({x:px,y:py,power:ghost.power||1}),new Promise(resolve=>setTimeout(resolve,950))]);}catch(e){console.warn('Replay:',e)}
+  if(match!==currentMatch||!currentMatch.running)return;
+  scene?.impact?.({x:px,y:py,score:ghost.score});
+  match.onlineReplayPoints+=Number(ghost.score)||0;
+  $('hud-rival').textContent=match.onlineReplayPoints;
+  toast('⚔️ '+(match.online.creator.name||'Adversário')+' acertou '+ghost.score+' pontos (replay)');
+  $('instruction').textContent='SUA VEZ • MIRE COM O ARCO E SOLTE PARA DISPARAR';
+ }
+ if(match.scores.length>=5){setTimeout(()=>{if(match===currentMatch&&currentMatch.running)finishMatch()},580);}
+ else{setTimeout(()=>{if(match===currentMatch&&currentMatch.running){changeTarget();match.locked=false;}},520);}
 }
+
 function showHit(score,x,y){const el=$('hit');el.textContent=score?'+'+score+' PONTOS':'FORA DO ALVO';el.style.left=(x*100)+'%';el.style.top=clamp(y*100-12,18,64)+'%';el.classList.remove('show');void el.offsetWidth;el.classList.add('show')}
 function chooseRobotScore(difficulty,playerAverage){const base={easy:5.1,medium:6.7,hard:8.15}[difficulty],adjust=clamp((playerAverage-5.5)*.17,-.7,.7);let result=clamp(base+adjust+rand(-3.3,3.3),0,10);return result>=9.25?10:result>=7?8:result>=5?6:result>=3?4:result>=1.5?2:0;}
 function finishMatch(){if(!match)return;match.running=false;match.locked=true;const total=match.scores.reduce((a,b)=>a+b,0),bot=match.mode==='bot'?Array.from({length:5},()=>chooseRobotScore(match.difficulty,total/5)):[],rivalScore=match.mode==='bot'?bot.reduce((a,b)=>a+b,0):match.incoming?.score;
