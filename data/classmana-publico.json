@@ -1,19 +1,19 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-05T20:13:04.721Z",
+  "exportedAt": "2026-11-05T23:46:35.673Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
       "code": "A",
       "turma": "4º A",
       "students": 26,
-      "totalXp": 395824,
-      "xp": 15224,
-      "level": 15.73076923076923,
-      "mana": 4.923076923076923,
+      "totalXp": 396934,
+      "xp": 15266.692307692309,
+      "level": 15.807692307692308,
+      "mana": 4.884615384615385,
       "hp": 9.961538461538462,
-      "goldTotal": 51389,
-      "gold": 1976.5
+      "goldTotal": 49519,
+      "gold": 1904.576923076923
     },
     {
       "code": "B",
@@ -31,13 +31,13 @@
       "code": "C",
       "turma": "4º C",
       "students": 26,
-      "totalXp": 440657,
-      "xp": 16948.346153846152,
-      "level": 17.46153846153846,
+      "totalXp": 442307,
+      "xp": 17011.80769230769,
+      "level": 17.5,
       "mana": 4.576923076923077,
       "hp": 9.384615384615385,
-      "goldTotal": 48849,
-      "gold": 1878.8076923076924
+      "goldTotal": 49129,
+      "gold": 1889.576923076923
     }
   ],
   "teams": [
@@ -86,8 +86,8 @@
       "group": 6,
       "name": "Dragoes de Combate",
       "students": 4,
-      "totalXp": 68987,
-      "xp": 17246.75
+      "totalXp": 68997,
+      "xp": 17249.25
     },
     {
       "house": "C",
@@ -122,20 +122,20 @@
       "xp": 16716
     },
     {
+      "house": "C",
+      "group": 5,
+      "name": "Magicos e Engenheiros",
+      "students": 5,
+      "totalXp": 82166,
+      "xp": 16433.2
+    },
+    {
       "house": "B",
       "group": 3,
       "name": "Lobos e Gatunos",
       "students": 5,
       "totalXp": 80999,
       "xp": 16199.8
-    },
-    {
-      "house": "C",
-      "group": 5,
-      "name": "Magicos e Engenheiros",
-      "students": 5,
-      "totalXp": 80516,
-      "xp": 16103.2
     },
     {
       "house": "A",
@@ -166,8 +166,8 @@
       "group": 1,
       "name": "Fadas Guerreiras",
       "students": 4,
-      "totalXp": 57228,
-      "xp": 14307
+      "totalXp": 58328,
+      "xp": 14582
     },
     {
       "house": "A",
@@ -219,6 +219,16 @@
     },
     {
       "house": "C",
+      "name": "BRAIAN DA SILVA DE OLIVEIRA",
+      "team": "Magicos e Engenheiros",
+      "level": 23,
+      "xp": 22688,
+      "mana": 5,
+      "hp": 10,
+      "gold": 3739
+    },
+    {
+      "house": "C",
       "name": "ANDREW GUSTAVO FELIX DE FREITAS",
       "team": "Cavaleiros e Guerreiros",
       "level": 22,
@@ -246,16 +256,6 @@
       "mana": 5,
       "hp": 10,
       "gold": 461
-    },
-    {
-      "house": "C",
-      "name": "BRAIAN DA SILVA DE OLIVEIRA",
-      "team": "Magicos e Engenheiros",
-      "level": 22,
-      "xp": 21038,
-      "mana": 5,
-      "hp": 10,
-      "gold": 3459
     },
     {
       "house": "B",
@@ -398,6 +398,16 @@
       "gold": 3081
     },
     {
+      "house": "A",
+      "name": "DEBORA YASMIN MARTINS LEAL",
+      "team": "Fadas Guerreiras",
+      "level": 20,
+      "xp": 19003,
+      "mana": 5,
+      "hp": 10,
+      "gold": 3633
+    },
+    {
       "house": "B",
       "name": "LIVIA DE LARA DOS SANTOS",
       "team": "Chama Congelante",
@@ -528,16 +538,6 @@
       "gold": 2668
     },
     {
-      "house": "A",
-      "name": "DEBORA YASMIN MARTINS LEAL",
-      "team": "Fadas Guerreiras",
-      "level": 18,
-      "xp": 17903,
-      "mana": 5,
-      "hp": 10,
-      "gold": 3503
-    },
-    {
       "house": "C",
       "name": "ALICE FERNANDA DA SILVA DE OLIVEIRA",
       "team": "Magicos e Engenheiros",
@@ -572,10 +572,10 @@
       "name": "CALEB MALGAREZE CARNEIRO",
       "team": "Dragoes de Combate",
       "level": 18,
-      "xp": 17613,
-      "mana": 5,
+      "xp": 17623,
+      "mana": 4,
       "hp": 10,
-      "gold": 2474
+      "gold": 474
     },
     {
       "house": "C",
@@ -1013,6 +1013,6 @@
       "score": 7
     }
   ],
-  "indexComputedAt": "2026-11-05T20:12:37.924Z",
+  "indexComputedAt": "2026-11-05T23:46:11.645Z",
   "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
 }
