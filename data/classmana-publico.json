@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-05T02:02:40.955Z",
+  "exportedAt": "2026-11-05T02:37:50.882Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -1013,6 +1013,6 @@
       "score": 6.98
     }
   ],
-  "indexComputedAt": "2026-11-05T02:02:16.209Z",
+  "indexComputedAt": "2026-11-05T02:37:22.696Z",
   "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
 }
