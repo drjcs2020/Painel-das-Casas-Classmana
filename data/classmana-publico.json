@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-06T18:25:57.948Z",
+  "exportedAt": "2026-11-06T18:58:53.281Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -19,25 +19,25 @@
       "code": "B",
       "turma": "4º B",
       "students": 27,
-      "totalXp": 485781,
-      "xp": 17991.88888888889,
+      "totalXp": 487231,
+      "xp": 18045.59259259259,
       "level": 18.555555555555557,
-      "mana": 3.7777777777777777,
-      "hp": 8.777777777777779,
-      "goldTotal": 54495,
-      "gold": 2018.3333333333333
+      "mana": 3.814814814814815,
+      "hp": 8.814814814814815,
+      "goldTotal": 57420,
+      "gold": 2126.6666666666665
     },
     {
       "code": "C",
       "turma": "4º C",
       "students": 26,
-      "totalXp": 456237,
-      "xp": 17547.576923076922,
+      "totalXp": 456687,
+      "xp": 17564.884615384617,
       "level": 18.115384615384617,
       "mana": 4.3076923076923075,
       "hp": 9.538461538461538,
-      "goldTotal": 50783,
-      "gold": 1953.1923076923076
+      "goldTotal": 52738,
+      "gold": 2028.3846153846155
     }
   ],
   "teams": [
@@ -46,8 +46,16 @@
       "group": 2,
       "name": "Chama Congelante",
       "students": 5,
-      "totalXp": 107200,
-      "xp": 21440
+      "totalXp": 108050,
+      "xp": 21610
+    },
+    {
+      "house": "B",
+      "group": 1,
+      "name": "Fadas Guerreiras",
+      "students": 4,
+      "totalXp": 79868,
+      "xp": 19967
     },
     {
       "house": "C",
@@ -56,14 +64,6 @@
       "students": 4,
       "totalXp": 79439,
       "xp": 19859.75
-    },
-    {
-      "house": "B",
-      "group": 1,
-      "name": "Fadas Guerreiras",
-      "students": 4,
-      "totalXp": 79268,
-      "xp": 19817
     },
     {
       "house": "A",
@@ -90,20 +90,20 @@
       "xp": 17546.75
     },
     {
+      "house": "C",
+      "group": 2,
+      "name": "Chama Congelante",
+      "students": 4,
+      "totalXp": 70142,
+      "xp": 17535.5
+    },
+    {
       "house": "B",
       "group": 5,
       "name": "Magicos e Engenheiros",
       "students": 5,
       "totalXp": 87522,
       "xp": 17504.4
-    },
-    {
-      "house": "C",
-      "group": 2,
-      "name": "Chama Congelante",
-      "students": 4,
-      "totalXp": 69692,
-      "xp": 17423
     },
     {
       "house": "A",
@@ -192,30 +192,30 @@
       "name": "ADENIR MIGUEL FERREIRA DA SILVA",
       "team": "Chama Congelante",
       "level": 26,
-      "xp": 25401,
+      "xp": 25551,
       "mana": 5,
       "hp": 10,
-      "gold": 4540
+      "gold": 4735
     },
     {
       "house": "B",
       "name": "YAGO DOMINIQUE FLORINDO LOPES",
       "team": "Chama Congelante",
       "level": 26,
-      "xp": 25215,
+      "xp": 25365,
       "mana": 5,
       "hp": 10,
-      "gold": 5108
+      "gold": 5208
     },
     {
       "house": "B",
       "name": "MIGUEL DE MÉLO",
       "team": "Chama Congelante",
       "level": 24,
-      "xp": 23065,
+      "xp": 23215,
       "mana": 5,
       "hp": 10,
-      "gold": 4462
+      "gold": 4712
     },
     {
       "house": "C",
@@ -225,7 +225,7 @@
       "xp": 23038,
       "mana": 5,
       "hp": 10,
-      "gold": 3744
+      "gold": 3884
     },
     {
       "house": "C",
@@ -235,7 +235,7 @@
       "xp": 22773,
       "mana": 5,
       "hp": 10,
-      "gold": 3194
+      "gold": 3369
     },
     {
       "house": "C",
@@ -255,17 +255,17 @@
       "xp": 21380,
       "mana": 2,
       "hp": 9,
-      "gold": 1550
+      "gold": 1700
     },
     {
       "house": "B",
       "name": "MANUELE CHEM",
       "team": "Fadas Guerreiras",
       "level": 22,
-      "xp": 21052,
+      "xp": 21202,
       "mana": 5,
       "hp": 10,
-      "gold": 2545
+      "gold": 2615
     },
     {
       "house": "C",
@@ -278,6 +278,16 @@
       "gold": 1572
     },
     {
+      "house": "B",
+      "name": "ISABELLY DOS SANTOS MOREIRA",
+      "team": "Fadas Guerreiras",
+      "level": 21,
+      "xp": 20862,
+      "mana": 4,
+      "hp": 9,
+      "gold": 2520
+    },
+    {
       "house": "C",
       "name": "NICOLAS ANTONIO DIAS GONÇALVES",
       "team": "Dragoes de Combate",
@@ -285,27 +295,17 @@
       "xp": 20777,
       "mana": 5,
       "hp": 10,
-      "gold": 3936
-    },
-    {
-      "house": "B",
-      "name": "ISABELLY DOS SANTOS MOREIRA",
-      "team": "Fadas Guerreiras",
-      "level": 21,
-      "xp": 20712,
-      "mana": 4,
-      "hp": 9,
-      "gold": 2330
+      "gold": 4166
     },
     {
       "house": "B",
       "name": "MAYSA OLIVEIRA DE ANHAIA",
       "team": "Chama Congelante",
       "level": 21,
-      "xp": 20395,
+      "xp": 20545,
       "mana": 5,
       "hp": 10,
-      "gold": 1522
+      "gold": 1792
     },
     {
       "house": "B",
@@ -352,10 +352,10 @@
       "name": "HELOISA VITORIA CORREA DA SILVA",
       "team": "Fadas Guerreiras",
       "level": 20,
-      "xp": 19772,
+      "xp": 19922,
       "mana": 5,
       "hp": 10,
-      "gold": 2387
+      "gold": 2622
     },
     {
       "house": "A",
@@ -368,6 +368,16 @@
       "gold": 487
     },
     {
+      "house": "B",
+      "name": "ANA NATHALIA DA CRUZ CARDOSO",
+      "team": "Chama Congelante",
+      "level": 20,
+      "xp": 19625,
+      "mana": 5,
+      "hp": 10,
+      "gold": 1679
+    },
+    {
       "house": "C",
       "name": "RALINNE ELIZA",
       "team": "Magicos e Engenheiros",
@@ -375,17 +385,17 @@
       "xp": 19623,
       "mana": 5,
       "hp": 10,
-      "gold": 867
+      "gold": 982
     },
     {
       "house": "B",
-      "name": "ANA NATHALIA DA CRUZ CARDOSO",
+      "name": "LIVIA DE LARA DOS SANTOS",
       "team": "Chama Congelante",
       "level": 20,
-      "xp": 19475,
+      "xp": 19300,
       "mana": 5,
       "hp": 10,
-      "gold": 1389
+      "gold": 2738
     },
     {
       "house": "C",
@@ -415,7 +425,7 @@
       "xp": 19135,
       "mana": 5,
       "hp": 10,
-      "gold": 3091
+      "gold": 3171
     },
     {
       "house": "C",
@@ -426,16 +436,6 @@
       "mana": 5,
       "hp": 10,
       "gold": 1693
-    },
-    {
-      "house": "B",
-      "name": "LIVIA DE LARA DOS SANTOS",
-      "team": "Chama Congelante",
-      "level": 20,
-      "xp": 19050,
-      "mana": 4,
-      "hp": 9,
-      "gold": 2463
     },
     {
       "house": "A",
@@ -505,7 +505,7 @@
       "xp": 18310,
       "mana": 5,
       "hp": 10,
-      "gold": 2692
+      "gold": 2907
     },
     {
       "house": "A",
@@ -545,7 +545,7 @@
       "xp": 18026,
       "mana": 5,
       "hp": 10,
-      "gold": 2678
+      "gold": 2768
     },
     {
       "house": "B",
@@ -555,7 +555,7 @@
       "xp": 17980,
       "mana": 4,
       "hp": 9,
-      "gold": 1131
+      "gold": 1216
     },
     {
       "house": "C",
@@ -565,7 +565,17 @@
       "xp": 17913,
       "mana": 5,
       "hp": 10,
-      "gold": 2935
+      "gold": 3095
+    },
+    {
+      "house": "B",
+      "name": "ANA ALICE MARCONDES PRADO DA SILVA",
+      "team": "Fadas Guerreiras",
+      "level": 18,
+      "xp": 17882,
+      "mana": 5,
+      "hp": 10,
+      "gold": 2856
     },
     {
       "house": "B",
@@ -576,16 +586,6 @@
       "mana": 4,
       "hp": 9,
       "gold": 2825
-    },
-    {
-      "house": "B",
-      "name": "ANA ALICE MARCONDES PRADO DA SILVA",
-      "team": "Fadas Guerreiras",
-      "level": 18,
-      "xp": 17732,
-      "mana": 5,
-      "hp": 10,
-      "gold": 2601
     },
     {
       "house": "A",
@@ -629,6 +629,16 @@
     },
     {
       "house": "C",
+      "name": "EMILY DOS SANTOS BUENO",
+      "team": "Chama Congelante",
+      "level": 18,
+      "xp": 17395,
+      "mana": 5,
+      "hp": 10,
+      "gold": 2350
+    },
+    {
+      "house": "C",
       "name": "YURI PIETRO PORTES E GOES",
       "team": "Magicos e Engenheiros",
       "level": 18,
@@ -636,16 +646,6 @@
       "mana": 4,
       "hp": 9,
       "gold": 2502
-    },
-    {
-      "house": "C",
-      "name": "EMILY DOS SANTOS BUENO",
-      "team": "Chama Congelante",
-      "level": 18,
-      "xp": 17245,
-      "mana": 5,
-      "hp": 10,
-      "gold": 2120
     },
     {
       "house": "A",
@@ -715,7 +715,7 @@
       "xp": 16644,
       "mana": 5,
       "hp": 10,
-      "gold": 1973
+      "gold": 2068
     },
     {
       "house": "A",
@@ -742,10 +742,10 @@
       "name": "MIGUEL JUSTUS LEITE",
       "team": "Chama Congelante",
       "level": 17,
-      "xp": 16133,
+      "xp": 16283,
       "mana": 1,
       "hp": 6,
-      "gold": 115
+      "gold": 215
     },
     {
       "house": "A",
@@ -765,7 +765,7 @@
       "xp": 15781,
       "mana": 0,
       "hp": 2,
-      "gold": 0
+      "gold": 75
     },
     {
       "house": "B",
@@ -795,7 +795,7 @@
       "xp": 15236,
       "mana": 0,
       "hp": 5,
-      "gold": 115
+      "gold": 225
     },
     {
       "house": "A",
@@ -825,7 +825,7 @@
       "xp": 14551,
       "mana": 0,
       "hp": 8,
-      "gold": 1549
+      "gold": 1614
     },
     {
       "house": "A",
@@ -845,7 +845,7 @@
       "xp": 14415,
       "mana": 4,
       "hp": 10,
-      "gold": 475
+      "gold": 695
     },
     {
       "house": "A",
@@ -885,7 +885,7 @@
       "xp": 12374,
       "mana": 5,
       "hp": 10,
-      "gold": 1566
+      "gold": 1581
     },
     {
       "house": "C",
@@ -895,7 +895,7 @@
       "xp": 12160,
       "mana": 2,
       "hp": 9,
-      "gold": 795
+      "gold": 925
     },
     {
       "house": "A",
@@ -915,7 +915,7 @@
       "xp": 11273,
       "mana": 5,
       "hp": 10,
-      "gold": 1011
+      "gold": 1021
     },
     {
       "house": "C",
@@ -925,7 +925,7 @@
       "xp": 10913,
       "mana": 3,
       "hp": 6,
-      "gold": 937
+      "gold": 977
     },
     {
       "house": "C",
@@ -935,7 +935,7 @@
       "xp": 7395,
       "mana": 5,
       "hp": 10,
-      "gold": 1790
+      "gold": 1985
     },
     {
       "house": "A",
@@ -965,7 +965,7 @@
       "xp": 4700,
       "mana": 5,
       "hp": 10,
-      "gold": 1145
+      "gold": 1170
     },
     {
       "house": "A",
@@ -996,10 +996,10 @@
         "conv": 5.7,
         "tech": 7.58,
         "learn": 9.85,
-        "comp": 8.13,
+        "comp": 8.95,
         "mission": 10
       },
-      "score": 7.47
+      "score": 7.55
     },
     {
       "code": "C",
@@ -1013,6 +1013,6 @@
       "score": 7.19
     }
   ],
-  "indexComputedAt": "2026-11-06T18:25:31.528Z",
+  "indexComputedAt": "2026-11-06T18:58:28.898Z",
   "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
 }
