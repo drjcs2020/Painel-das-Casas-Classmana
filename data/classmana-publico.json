@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-06T18:02:37.749Z",
+  "exportedAt": "2026-11-06T18:25:57.948Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -12,8 +12,8 @@
       "level": 15.923076923076923,
       "mana": 4.884615384615385,
       "hp": 9.961538461538462,
-      "goldTotal": 50244,
-      "gold": 1932.4615384615386
+      "goldTotal": 51999,
+      "gold": 1999.9615384615386
     },
     {
       "code": "B",
@@ -24,8 +24,8 @@
       "level": 18.555555555555557,
       "mana": 3.7777777777777777,
       "hp": 8.777777777777779,
-      "goldTotal": 53795,
-      "gold": 1992.4074074074074
+      "goldTotal": 54495,
+      "gold": 2018.3333333333333
     },
     {
       "code": "C",
@@ -205,7 +205,7 @@
       "xp": 25215,
       "mana": 5,
       "hp": 10,
-      "gold": 4883
+      "gold": 5108
     },
     {
       "house": "B",
@@ -315,7 +315,7 @@
       "xp": 20355,
       "mana": 5,
       "hp": 10,
-      "gold": 3322
+      "gold": 3562
     },
     {
       "house": "A",
@@ -325,7 +325,7 @@
       "xp": 20293,
       "mana": 5,
       "hp": 10,
-      "gold": 4003
+      "gold": 4203
     },
     {
       "house": "A",
@@ -335,7 +335,7 @@
       "xp": 20043,
       "mana": 5,
       "hp": 10,
-      "gold": 3256
+      "gold": 3356
     },
     {
       "house": "A",
@@ -345,7 +345,7 @@
       "xp": 19973,
       "mana": 5,
       "hp": 10,
-      "gold": 3965
+      "gold": 4170
     },
     {
       "house": "B",
@@ -445,7 +445,7 @@
       "xp": 18788,
       "mana": 5,
       "hp": 10,
-      "gold": 2903
+      "gold": 3038
     },
     {
       "house": "C",
@@ -485,7 +485,7 @@
       "xp": 18326,
       "mana": 3,
       "hp": 9,
-      "gold": 555
+      "gold": 805
     },
     {
       "house": "C",
@@ -515,7 +515,7 @@
       "xp": 18236,
       "mana": 5,
       "hp": 10,
-      "gold": 2224
+      "gold": 2269
     },
     {
       "house": "C",
@@ -595,7 +595,7 @@
       "xp": 17723,
       "mana": 5,
       "hp": 10,
-      "gold": 484
+      "gold": 544
     },
     {
       "house": "A",
@@ -605,7 +605,7 @@
       "xp": 17596,
       "mana": 5,
       "hp": 10,
-      "gold": 3444
+      "gold": 3654
     },
     {
       "house": "B",
@@ -625,7 +625,7 @@
       "xp": 17421,
       "mana": 5,
       "hp": 10,
-      "gold": 2667
+      "gold": 2737
     },
     {
       "house": "C",
@@ -735,7 +735,7 @@
       "xp": 16386,
       "mana": 5,
       "hp": 10,
-      "gold": 2091
+      "gold": 2336
     },
     {
       "house": "C",
@@ -755,7 +755,7 @@
       "xp": 15890,
       "mana": 5,
       "hp": 10,
-      "gold": 2027
+      "gold": 2057
     },
     {
       "house": "B",
@@ -775,7 +775,7 @@
       "xp": 15276,
       "mana": 0,
       "hp": 5,
-      "gold": 777
+      "gold": 1012
     },
     {
       "house": "A",
@@ -805,7 +805,7 @@
       "xp": 14843,
       "mana": 5,
       "hp": 10,
-      "gold": 1669
+      "gold": 1794
     },
     {
       "house": "A",
@@ -855,7 +855,7 @@
       "xp": 14327,
       "mana": 5,
       "hp": 10,
-      "gold": 1284
+      "gold": 1304
     },
     {
       "house": "B",
@@ -875,7 +875,7 @@
       "xp": 12561,
       "mana": 5,
       "hp": 10,
-      "gold": 1701
+      "gold": 1756
     },
     {
       "house": "B",
@@ -975,7 +975,7 @@
       "xp": 4293,
       "mana": 5,
       "hp": 10,
-      "gold": 1098
+      "gold": 1103
     }
   ],
   "indices": [
@@ -985,10 +985,10 @@
         "conv": 5.93,
         "tech": 9.62,
         "learn": 10,
-        "comp": 8.12,
+        "comp": 8.76,
         "mission": 10
       },
-      "score": 8.09
+      "score": 8.15
     },
     {
       "code": "B",
@@ -996,10 +996,10 @@
         "conv": 5.7,
         "tech": 7.58,
         "learn": 9.85,
-        "comp": 8,
+        "comp": 8.13,
         "mission": 10
       },
-      "score": 7.45
+      "score": 7.47
     },
     {
       "code": "C",
@@ -1013,6 +1013,6 @@
       "score": 7.19
     }
   ],
-  "indexComputedAt": "2026-11-06T18:02:12.374Z",
+  "indexComputedAt": "2026-11-06T18:25:31.528Z",
   "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
 }
