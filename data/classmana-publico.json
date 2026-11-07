@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-06T22:44:45.471Z",
+  "exportedAt": "2026-11-07T01:10:18.815Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -31,13 +31,13 @@
       "code": "C",
       "turma": "4º C",
       "students": 26,
-      "totalXp": 460927,
-      "xp": 17727.96153846154,
+      "totalXp": 460937,
+      "xp": 17728.346153846152,
       "level": 18.26923076923077,
       "mana": 4.8076923076923075,
       "hp": 9.961538461538462,
-      "goldTotal": 56978,
-      "gold": 2191.4615384615386
+      "goldTotal": 56983,
+      "gold": 2191.653846153846
     }
   ],
   "teams": [
@@ -142,8 +142,8 @@
       "group": 3,
       "name": "Lobos e Gatunos",
       "students": 5,
-      "totalXp": 81794,
-      "xp": 16358.8
+      "totalXp": 81804,
+      "xp": 16360.8
     },
     {
       "house": "A",
@@ -522,10 +522,10 @@
       "name": "ANA MARIA",
       "team": "Lobos e Gatunos",
       "level": 19,
-      "xp": 18378,
+      "xp": 18388,
       "mana": 5,
       "hp": 10,
-      "gold": 2628
+      "gold": 2633
     },
     {
       "house": "B",
@@ -1013,6 +1013,6 @@
       "score": 7.41
     }
   ],
-  "indexComputedAt": "2026-11-06T22:44:15.849Z",
+  "indexComputedAt": "2026-11-07T01:09:54.769Z",
   "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
 }
