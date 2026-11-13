@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-12T19:43:21.391Z",
+  "exportedAt": "2026-11-13T01:33:41.247Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -19,25 +19,25 @@
       "code": "B",
       "turma": "4º B",
       "students": 27,
-      "totalXp": 504911,
-      "xp": 18700.40740740741,
+      "totalXp": 504931,
+      "xp": 18701.14814814815,
       "level": 19.22222222222222,
       "mana": 4.888888888888889,
       "hp": 9.777777777777779,
-      "goldTotal": 57909,
-      "gold": 2144.777777777778
+      "goldTotal": 57929,
+      "gold": 2145.5185185185187
     },
     {
       "code": "C",
       "turma": "4º C",
       "students": 26,
-      "totalXp": 477713,
-      "xp": 18373.576923076922,
-      "level": 18.846153846153847,
+      "totalXp": 479253,
+      "xp": 18432.80769230769,
+      "level": 18.923076923076923,
       "mana": 4.8076923076923075,
       "hp": 10,
-      "goldTotal": 56839,
-      "gold": 2186.1153846153848
+      "goldTotal": 57104,
+      "gold": 2196.3076923076924
     }
   ],
   "teams": [
@@ -54,8 +54,8 @@
       "group": 1,
       "name": "Fadas Guerreiras",
       "students": 4,
-      "totalXp": 82918,
-      "xp": 20729.5
+      "totalXp": 82938,
+      "xp": 20734.5
     },
     {
       "house": "C",
@@ -70,8 +70,8 @@
       "group": 4,
       "name": "Cavaleiros e Guerreiros",
       "students": 4,
-      "totalXp": 75593,
-      "xp": 18898.25
+      "totalXp": 75783,
+      "xp": 18945.75
     },
     {
       "house": "A",
@@ -110,8 +110,8 @@
       "group": 5,
       "name": "Magicos e Engenheiros",
       "students": 5,
-      "totalXp": 88051,
-      "xp": 17610.2
+      "totalXp": 89401,
+      "xp": 17880.2
     },
     {
       "house": "B",
@@ -211,11 +211,11 @@
       "house": "C",
       "name": "ANDREW GUSTAVO FELIX DE FREITAS",
       "team": "Cavaleiros e Guerreiros",
-      "level": 24,
-      "xp": 23939,
+      "level": 25,
+      "xp": 24129,
       "mana": 5,
       "hp": 10,
-      "gold": 3963
+      "gold": 4023
     },
     {
       "house": "C",
@@ -252,10 +252,10 @@
       "name": "MANUELE CHEM",
       "team": "Fadas Guerreiras",
       "level": 23,
-      "xp": 22122,
+      "xp": 22142,
       "mana": 5,
       "hp": 10,
-      "gold": 3000
+      "gold": 3020
     },
     {
       "house": "B",
@@ -266,6 +266,16 @@
       "mana": 5,
       "hp": 10,
       "gold": 2040
+    },
+    {
+      "house": "C",
+      "name": "RALINNE ELIZA",
+      "team": "Magicos e Engenheiros",
+      "level": 22,
+      "xp": 21854,
+      "mana": 5,
+      "hp": 10,
+      "gold": 1611
     },
     {
       "house": "C",
@@ -346,16 +356,6 @@
       "mana": 2,
       "hp": 8,
       "gold": 3448
-    },
-    {
-      "house": "C",
-      "name": "RALINNE ELIZA",
-      "team": "Magicos e Engenheiros",
-      "level": 21,
-      "xp": 20504,
-      "mana": 5,
-      "hp": 10,
-      "gold": 1406
     },
     {
       "house": "A",
@@ -1023,6 +1023,6 @@
       "score": 7.44
     }
   ],
-  "indexComputedAt": "2026-11-12T19:42:50.865Z",
+  "indexComputedAt": "2026-11-13T01:33:18.671Z",
   "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
 }
