@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-13T17:13:12.457Z",
+  "exportedAt": "2026-11-16T18:38:42.077Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -19,25 +19,25 @@
       "code": "B",
       "turma": "4º B",
       "students": 27,
-      "totalXp": 508371,
-      "xp": 18828.555555555555,
-      "level": 19.333333333333332,
+      "totalXp": 508381,
+      "xp": 18828.925925925927,
+      "level": 19.37037037037037,
       "mana": 4.888888888888889,
       "hp": 9.851851851851851,
-      "goldTotal": 57619,
-      "gold": 2134.037037037037
+      "goldTotal": 57624,
+      "gold": 2134.222222222222
     },
     {
       "code": "C",
       "turma": "4º C",
       "students": 26,
-      "totalXp": 495473,
-      "xp": 19056.653846153848,
-      "level": 19.615384615384617,
-      "mana": 5,
-      "hp": 10,
-      "goldTotal": 61564,
-      "gold": 2367.846153846154
+      "totalXp": 495078,
+      "xp": 19041.46153846154,
+      "level": 19.692307692307693,
+      "mana": 4.461538461538462,
+      "hp": 9.76923076923077,
+      "goldTotal": 60504,
+      "gold": 2327.076923076923
     }
   ],
   "teams": [
@@ -46,8 +46,8 @@
       "group": 2,
       "name": "Chama Congelante",
       "students": 5,
-      "totalXp": 112160,
-      "xp": 22432
+      "totalXp": 112170,
+      "xp": 22434
     },
     {
       "house": "C",
@@ -70,32 +70,32 @@
       "group": 4,
       "name": "Cavaleiros e Guerreiros",
       "students": 4,
-      "totalXp": 77353,
-      "xp": 19338.25
+      "totalXp": 76758,
+      "xp": 19189.5
     },
     {
       "house": "C",
       "group": 6,
       "name": "Dragoes de Combate",
       "students": 4,
-      "totalXp": 75281,
-      "xp": 18820.25
+      "totalXp": 75881,
+      "xp": 18970.25
     },
     {
       "house": "C",
       "group": 2,
       "name": "Chama Congelante",
       "students": 4,
-      "totalXp": 75216,
-      "xp": 18804
+      "totalXp": 75016,
+      "xp": 18754
     },
     {
       "house": "C",
       "group": 5,
       "name": "Magicos e Engenheiros",
       "students": 5,
-      "totalXp": 93621,
-      "xp": 18724.2
+      "totalXp": 93421,
+      "xp": 18684.2
     },
     {
       "house": "A",
@@ -231,11 +231,11 @@
       "house": "B",
       "name": "MIGUEL DE MÉLO",
       "team": "Chama Congelante",
-      "level": 24,
-      "xp": 23995,
+      "level": 25,
+      "xp": 24005,
       "mana": 5,
       "hp": 10,
-      "gold": 5042
+      "gold": 5047
     },
     {
       "house": "C",
@@ -359,16 +359,6 @@
     },
     {
       "house": "C",
-      "name": "ALICE FERNANDA DA SILVA DE OLIVEIRA",
-      "team": "Magicos e Engenheiros",
-      "level": 21,
-      "xp": 20527,
-      "mana": 5,
-      "hp": 10,
-      "gold": 2056
-    },
-    {
-      "house": "C",
       "name": "GUILHERME FAHR",
       "team": "Lobos e Gatunos",
       "level": 21,
@@ -406,6 +396,16 @@
       "mana": 5,
       "hp": 10,
       "gold": 1942
+    },
+    {
+      "house": "C",
+      "name": "ALICE FERNANDA DA SILVA DE OLIVEIRA",
+      "team": "Magicos e Engenheiros",
+      "level": 21,
+      "xp": 20327,
+      "mana": 3,
+      "hp": 9,
+      "gold": 1856
     },
     {
       "house": "C",
@@ -478,16 +478,6 @@
       "gold": 3501
     },
     {
-      "house": "C",
-      "name": "AGATHA APARECIDA CAMARGO",
-      "team": "Cavaleiros e Guerreiros",
-      "level": 20,
-      "xp": 19874,
-      "mana": 5,
-      "hp": 10,
-      "gold": 2089
-    },
-    {
       "house": "A",
       "name": "CALEB MALGAREZE CARNEIRO",
       "team": "Dragoes de Combate",
@@ -496,6 +486,16 @@
       "mana": 2,
       "hp": 10,
       "gold": 829
+    },
+    {
+      "house": "C",
+      "name": "AGATHA APARECIDA CAMARGO",
+      "team": "Cavaleiros e Guerreiros",
+      "level": 20,
+      "xp": 19674,
+      "mana": 3,
+      "hp": 9,
+      "gold": 1889
     },
     {
       "house": "A",
@@ -519,26 +519,6 @@
     },
     {
       "house": "C",
-      "name": "MARIA EDUARDA SANTOS SILVA",
-      "team": "Dragoes de Combate",
-      "level": 20,
-      "xp": 19491,
-      "mana": 5,
-      "hp": 10,
-      "gold": 724
-    },
-    {
-      "house": "C",
-      "name": "MARIA VITORIA DA SILVA CASTRO",
-      "team": "Cavaleiros e Guerreiros",
-      "level": 20,
-      "xp": 19474,
-      "mana": 5,
-      "hp": 10,
-      "gold": 3194
-    },
-    {
-      "house": "C",
       "name": "SOPHIA DA ROSA",
       "team": "Fadas Guerreiras",
       "level": 20,
@@ -546,6 +526,26 @@
       "mana": 5,
       "hp": 10,
       "gold": 989
+    },
+    {
+      "house": "C",
+      "name": "MARIA EDUARDA SANTOS SILVA",
+      "team": "Dragoes de Combate",
+      "level": 20,
+      "xp": 19291,
+      "mana": 3,
+      "hp": 9,
+      "gold": 524
+    },
+    {
+      "house": "C",
+      "name": "MARIA VITORIA DA SILVA CASTRO",
+      "team": "Cavaleiros e Guerreiros",
+      "level": 20,
+      "xp": 19274,
+      "mana": 3,
+      "hp": 9,
+      "gold": 2994
     },
     {
       "house": "B",
@@ -638,6 +638,16 @@
       "gold": 2499
     },
     {
+      "house": "C",
+      "name": "RAFAEL FERNANDO DOS SANTOS CORDEIRO",
+      "team": "Dragoes de Combate",
+      "level": 19,
+      "xp": 18186,
+      "mana": 5,
+      "hp": 10,
+      "gold": 1402
+    },
+    {
       "house": "B",
       "name": "KAUA R. GOMES",
       "team": "Cavaleiros e Guerreiros",
@@ -646,16 +656,6 @@
       "mana": 5,
       "hp": 10,
       "gold": 2417
-    },
-    {
-      "house": "C",
-      "name": "RAFAEL FERNANDO DOS SANTOS CORDEIRO",
-      "team": "Dragoes de Combate",
-      "level": 18,
-      "xp": 17796,
-      "mana": 5,
-      "hp": 10,
-      "gold": 1302
     },
     {
       "house": "B",
@@ -712,10 +712,10 @@
       "name": "MIGUEL JUSTUS LEITE",
       "team": "Chama Congelante",
       "level": 18,
-      "xp": 17569,
-      "mana": 5,
-      "hp": 10,
-      "gold": 764
+      "xp": 17369,
+      "mana": 3,
+      "hp": 9,
+      "gold": 564
     },
     {
       "house": "A",
@@ -778,6 +778,16 @@
       "gold": 375
     },
     {
+      "house": "C",
+      "name": "DAVI NICOLAS MATOS ALVES",
+      "team": "Dragoes de Combate",
+      "level": 17,
+      "xp": 16361,
+      "mana": 5,
+      "hp": 10,
+      "gold": 1629
+    },
+    {
       "house": "A",
       "name": "ANA JULIA PIMENTEL GOMES",
       "team": "Fadas Guerreiras",
@@ -806,16 +816,6 @@
       "mana": 5,
       "hp": 10,
       "gold": 575
-    },
-    {
-      "house": "C",
-      "name": "DAVI NICOLAS MATOS ALVES",
-      "team": "Dragoes de Combate",
-      "level": 16,
-      "xp": 15951,
-      "mana": 5,
-      "hp": 10,
-      "gold": 1539
     },
     {
       "house": "A",
@@ -872,10 +872,10 @@
       "name": "FELIPE BONFIM BRANDT DA SILVA",
       "team": "Cavaleiros e Guerreiros",
       "level": 14,
-      "xp": 13486,
-      "mana": 5,
-      "hp": 10,
-      "gold": 1439
+      "xp": 13291,
+      "mana": 1,
+      "hp": 9,
+      "gold": 1189
     },
     {
       "house": "A",
@@ -1014,15 +1014,15 @@
     {
       "code": "C",
       "axes": {
-        "conv": 5.61,
+        "conv": 5.6,
         "tech": 7.25,
         "learn": 10,
         "comp": 10,
         "mission": 10
       },
-      "score": 7.56
+      "score": 7.55
     }
   ],
-  "indexComputedAt": "2026-11-13T17:12:45.513Z",
+  "indexComputedAt": "2026-11-16T18:38:14.612Z",
   "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
 }
