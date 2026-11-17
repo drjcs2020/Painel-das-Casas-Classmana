@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-16T19:46:10.089Z",
+  "exportedAt": "2026-11-17T18:39:50.706Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -31,13 +31,13 @@
       "code": "C",
       "turma": "4º C",
       "students": 26,
-      "totalXp": 497678,
-      "xp": 19141.46153846154,
+      "totalXp": 497998,
+      "xp": 19153.76923076923,
       "level": 19.692307692307693,
       "mana": 4.6923076923076925,
       "hp": 10,
-      "goldTotal": 60764,
-      "gold": 2337.076923076923
+      "goldTotal": 60834,
+      "gold": 2339.769230769231
     }
   ],
   "teams": [
@@ -78,8 +78,8 @@
       "group": 6,
       "name": "Dragoes de Combate",
       "students": 4,
-      "totalXp": 76281,
-      "xp": 19070.25
+      "totalXp": 76601,
+      "xp": 19150.25
     },
     {
       "house": "C",
@@ -748,6 +748,16 @@
       "gold": 399
     },
     {
+      "house": "C",
+      "name": "DAVI NICOLAS MATOS ALVES",
+      "team": "Dragoes de Combate",
+      "level": 17,
+      "xp": 16781,
+      "mana": 5,
+      "hp": 10,
+      "gold": 1709
+    },
+    {
       "house": "B",
       "name": "JOAO MIGUEL ANJOS DE DEUS",
       "team": "Cavaleiros e Guerreiros",
@@ -776,16 +786,6 @@
       "mana": 1,
       "hp": 8,
       "gold": 1634
-    },
-    {
-      "house": "C",
-      "name": "DAVI NICOLAS MATOS ALVES",
-      "team": "Dragoes de Combate",
-      "level": 17,
-      "xp": 16461,
-      "mana": 5,
-      "hp": 10,
-      "gold": 1639
     },
     {
       "house": "B",
@@ -1023,6 +1023,6 @@
       "score": 7.56
     }
   ],
-  "indexComputedAt": "2026-11-16T19:45:43.027Z",
+  "indexComputedAt": "2026-11-17T18:39:20.558Z",
   "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
 }
