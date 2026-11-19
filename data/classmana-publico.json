@@ -1,19 +1,19 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-18T19:43:44.372Z",
+  "exportedAt": "2026-11-19T17:25:53.862Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
       "code": "A",
       "turma": "4º A",
       "students": 27,
-      "totalXp": 421096,
-      "xp": 15596.148148148148,
+      "totalXp": 421116,
+      "xp": 15596.888888888889,
       "level": 16.11111111111111,
       "mana": 3.2222222222222223,
       "hp": 9.666666666666666,
-      "goldTotal": 38952,
-      "gold": 1442.6666666666667
+      "goldTotal": 38972,
+      "gold": 1443.4074074074074
     },
     {
       "code": "B",
@@ -150,8 +150,8 @@
       "group": 2,
       "name": "Chama Congelante",
       "students": 4,
-      "totalXp": 65591,
-      "xp": 16397.75
+      "totalXp": 65611,
+      "xp": 16402.75
     },
     {
       "house": "A",
@@ -562,10 +562,10 @@
       "name": "KENIDY RYAN OLIVEIRA DOS SANTOS",
       "team": "Chama Congelante",
       "level": 20,
-      "xp": 19118,
+      "xp": 19138,
       "mana": 5,
       "hp": 9,
-      "gold": 2673
+      "gold": 2693
     },
     {
       "house": "B",
@@ -1023,6 +1023,6 @@
       "score": 7.56
     }
   ],
-  "indexComputedAt": "2026-11-18T19:43:16.406Z",
+  "indexComputedAt": "2026-11-19T17:25:33.769Z",
   "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
 }
