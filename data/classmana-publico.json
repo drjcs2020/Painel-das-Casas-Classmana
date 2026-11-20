@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-20T13:54:45.669Z",
+  "exportedAt": "2026-11-20T15:51:50.738Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -31,13 +31,13 @@
       "code": "C",
       "turma": "4º C",
       "students": 26,
-      "totalXp": 500398,
-      "xp": 19246.076923076922,
-      "level": 19.73076923076923,
-      "mana": 3.576923076923077,
+      "totalXp": 500898,
+      "xp": 19265.30769230769,
+      "level": 19.76923076923077,
+      "mana": 3.6153846153846154,
       "hp": 9,
-      "goldTotal": 56111,
-      "gold": 2158.1153846153848
+      "goldTotal": 56136,
+      "gold": 2159.076923076923
     }
   ],
   "teams": [
@@ -54,8 +54,8 @@
       "group": 1,
       "name": "Fadas Guerreiras",
       "students": 4,
-      "totalXp": 85488,
-      "xp": 21372
+      "totalXp": 85588,
+      "xp": 21397
     },
     {
       "house": "B",
@@ -70,24 +70,24 @@
       "group": 4,
       "name": "Cavaleiros e Guerreiros",
       "students": 4,
-      "totalXp": 77268,
-      "xp": 19317
+      "totalXp": 77368,
+      "xp": 19342
     },
     {
       "house": "C",
       "group": 6,
       "name": "Dragoes de Combate",
       "students": 4,
-      "totalXp": 77041,
-      "xp": 19260.25
+      "totalXp": 77241,
+      "xp": 19310.25
     },
     {
       "house": "C",
       "group": 5,
       "name": "Magicos e Engenheiros",
       "students": 5,
-      "totalXp": 94731,
-      "xp": 18946.2
+      "totalXp": 94831,
+      "xp": 18966.2
     },
     {
       "house": "C",
@@ -212,10 +212,10 @@
       "name": "ANDREW GUSTAVO FELIX DE FREITAS",
       "team": "Cavaleiros e Guerreiros",
       "level": 25,
-      "xp": 24629,
+      "xp": 24729,
       "mana": 4,
       "hp": 9,
-      "gold": 4263
+      "gold": 4268
     },
     {
       "house": "C",
@@ -262,10 +262,10 @@
       "name": "RALINNE ELIZA",
       "team": "Magicos e Engenheiros",
       "level": 23,
-      "xp": 22604,
+      "xp": 22704,
       "mana": 4,
       "hp": 9,
-      "gold": 1406
+      "gold": 1411
     },
     {
       "house": "B",
@@ -382,10 +382,10 @@
       "name": "ISABELLA DE LARA SARAIVA",
       "team": "Fadas Guerreiras",
       "level": 21,
-      "xp": 20519,
+      "xp": 20619,
       "mana": 4,
       "hp": 9,
-      "gold": 1299
+      "gold": 1304
     },
     {
       "house": "A",
@@ -642,10 +642,10 @@
       "name": "RAFAEL FERNANDO DOS SANTOS CORDEIRO",
       "team": "Dragoes de Combate",
       "level": 19,
-      "xp": 18526,
+      "xp": 18626,
       "mana": 2,
       "hp": 9,
-      "gold": 1482
+      "gold": 1487
     },
     {
       "house": "B",
@@ -751,11 +751,11 @@
       "house": "C",
       "name": "DAVI NICOLAS MATOS ALVES",
       "team": "Dragoes de Combate",
-      "level": 17,
-      "xp": 16981,
-      "mana": 4,
+      "level": 18,
+      "xp": 17081,
+      "mana": 5,
       "hp": 9,
-      "gold": 1764
+      "gold": 1769
     },
     {
       "house": "B",
@@ -1023,6 +1023,6 @@
       "score": 7.56
     }
   ],
-  "indexComputedAt": "2026-11-20T13:54:16.441Z",
+  "indexComputedAt": "2026-11-20T15:51:27.239Z",
   "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
 }
