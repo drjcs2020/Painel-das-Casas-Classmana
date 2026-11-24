@@ -1,6 +1,6 @@
 {
   "schema": "classmana-painel-publico-v1",
-  "exportedAt": "2026-11-24T16:05:09.200Z",
+  "exportedAt": "2026-11-24T16:19:52.800Z",
   "note": "Dados de jogo para ranking recreativo; o Índice das Casas não é recalculado por este exportador.",
   "houses": [
     {
@@ -22,8 +22,8 @@
       "totalXp": 519576,
       "xp": 19243.555555555555,
       "level": 19.77777777777778,
-      "mana": 4.851851851851852,
-      "hp": 10,
+      "mana": 5.814814814814815,
+      "hp": 6.7407407407407405,
       "goldTotal": 57981,
       "gold": 2147.4444444444443
     },
@@ -34,8 +34,8 @@
       "totalXp": 495808,
       "xp": 19069.53846153846,
       "level": 19.653846153846153,
-      "mana": 2.5384615384615383,
-      "hp": 8.038461538461538,
+      "mana": 3.269230769230769,
+      "hp": 6.230769230769231,
       "goldTotal": 54741,
       "gold": 2105.423076923077
     }
@@ -204,7 +204,7 @@
       "level": 27,
       "xp": 26535,
       "mana": 5,
-      "hp": 10,
+      "hp": 8,
       "gold": 5608
     },
     {
@@ -223,8 +223,8 @@
       "team": "Magicos e Engenheiros",
       "level": 25,
       "xp": 24384,
-      "mana": 3,
-      "hp": 8,
+      "mana": 5,
+      "hp": 4,
       "gold": 4473
     },
     {
@@ -234,7 +234,7 @@
       "level": 25,
       "xp": 24355,
       "mana": 5,
-      "hp": 10,
+      "hp": 8,
       "gold": 4987
     },
     {
@@ -243,8 +243,8 @@
       "team": "Fadas Guerreiras",
       "level": 23,
       "xp": 22981,
-      "mana": 3,
-      "hp": 8,
+      "mana": 5,
+      "hp": 4,
       "gold": 707
     },
     {
@@ -253,8 +253,8 @@
       "team": "Fadas Guerreiras",
       "level": 23,
       "xp": 22852,
-      "mana": 5,
-      "hp": 10,
+      "mana": 8,
+      "hp": 4,
       "gold": 2585
     },
     {
@@ -263,8 +263,8 @@
       "team": "Magicos e Engenheiros",
       "level": 23,
       "xp": 22655,
-      "mana": 2,
-      "hp": 10,
+      "mana": 4,
+      "hp": 4,
       "gold": 1860
     },
     {
@@ -273,8 +273,8 @@
       "team": "Magicos e Engenheiros",
       "level": 23,
       "xp": 22514,
-      "mana": 3,
-      "hp": 8,
+      "mana": 5,
+      "hp": 4,
       "gold": 1366
     },
     {
@@ -283,8 +283,8 @@
       "team": "Fadas Guerreiras",
       "level": 23,
       "xp": 22232,
-      "mana": 5,
-      "hp": 10,
+      "mana": 8,
+      "hp": 4,
       "gold": 2690
     },
     {
@@ -293,8 +293,8 @@
       "team": "Fadas Guerreiras",
       "level": 23,
       "xp": 22061,
-      "mana": 3,
-      "hp": 8,
+      "mana": 5,
+      "hp": 4,
       "gold": 2236
     },
     {
@@ -314,7 +314,7 @@
       "level": 22,
       "xp": 21815,
       "mana": 5,
-      "hp": 10,
+      "hp": 8,
       "gold": 1762
     },
     {
@@ -323,8 +323,8 @@
       "team": "Lobos e Gatunos",
       "level": 22,
       "xp": 21635,
-      "mana": 5,
-      "hp": 10,
+      "mana": 6,
+      "hp": 6,
       "gold": 4052
     },
     {
@@ -333,8 +333,8 @@
       "team": "Fadas Guerreiras",
       "level": 22,
       "xp": 21202,
-      "mana": 5,
-      "hp": 10,
+      "mana": 8,
+      "hp": 4,
       "gold": 2802
     },
     {
@@ -344,7 +344,7 @@
       "level": 21,
       "xp": 20875,
       "mana": 5,
-      "hp": 10,
+      "hp": 8,
       "gold": 1609
     },
     {
@@ -353,8 +353,8 @@
       "team": "Lobos e Gatunos",
       "level": 21,
       "xp": 20714,
-      "mana": 3,
-      "hp": 8,
+      "mana": 4,
+      "hp": 6,
       "gold": 1196
     },
     {
@@ -384,7 +384,7 @@
       "level": 21,
       "xp": 20550,
       "mana": 5,
-      "hp": 10,
+      "hp": 8,
       "gold": 2888
     },
     {
@@ -394,7 +394,7 @@
       "level": 21,
       "xp": 20519,
       "mana": 0,
-      "hp": 9,
+      "hp": 4,
       "gold": 1154
     },
     {
@@ -403,8 +403,8 @@
       "team": "Lobos e Gatunos",
       "level": 21,
       "xp": 20355,
-      "mana": 5,
-      "hp": 10,
+      "mana": 6,
+      "hp": 6,
       "gold": 3541
     },
     {
@@ -423,8 +423,8 @@
       "team": "Magicos e Engenheiros",
       "level": 21,
       "xp": 20227,
-      "mana": 3,
-      "hp": 8,
+      "mana": 5,
+      "hp": 4,
       "gold": 1776
     },
     {
@@ -433,8 +433,8 @@
       "team": "Lobos e Gatunos",
       "level": 21,
       "xp": 20136,
-      "mana": 3,
-      "hp": 8,
+      "mana": 4,
+      "hp": 6,
       "gold": 2566
     },
     {
@@ -443,8 +443,8 @@
       "team": "Lobos e Gatunos",
       "level": 21,
       "xp": 20129,
-      "mana": 3,
-      "hp": 8,
+      "mana": 4,
+      "hp": 6,
       "gold": 3214
     },
     {
@@ -513,8 +513,8 @@
       "team": "Lobos e Gatunos",
       "level": 20,
       "xp": 19534,
-      "mana": 3,
-      "hp": 8,
+      "mana": 4,
+      "hp": 6,
       "gold": 3237
     },
     {
@@ -523,8 +523,8 @@
       "team": "Magicos e Engenheiros",
       "level": 20,
       "xp": 19520,
-      "mana": 5,
-      "hp": 10,
+      "mana": 8,
+      "hp": 4,
       "gold": 2287
     },
     {
@@ -533,8 +533,8 @@
       "team": "Fadas Guerreiras",
       "level": 20,
       "xp": 19327,
-      "mana": 3,
-      "hp": 8,
+      "mana": 5,
+      "hp": 4,
       "gold": 429
     },
     {
@@ -544,7 +544,7 @@
       "level": 20,
       "xp": 19216,
       "mana": 5,
-      "hp": 10,
+      "hp": 8,
       "gold": 3148
     },
     {
@@ -573,8 +573,8 @@
       "team": "Fadas Guerreiras",
       "level": 20,
       "xp": 19062,
-      "mana": 5,
-      "hp": 10,
+      "mana": 8,
+      "hp": 4,
       "gold": 2916
     },
     {
@@ -583,8 +583,8 @@
       "team": "Magicos e Engenheiros",
       "level": 19,
       "xp": 18960,
-      "mana": 5,
-      "hp": 10,
+      "mana": 8,
+      "hp": 4,
       "gold": 366
     },
     {
@@ -593,7 +593,7 @@
       "team": "Dragoes de Combate",
       "level": 19,
       "xp": 18871,
-      "mana": 5,
+      "mana": 4,
       "hp": 10,
       "gold": 2505
     },
@@ -603,8 +603,8 @@
       "team": "Magicos e Engenheiros",
       "level": 19,
       "xp": 18848,
-      "mana": 5,
-      "hp": 10,
+      "mana": 8,
+      "hp": 4,
       "gold": 50
     },
     {
@@ -624,7 +624,7 @@
       "level": 19,
       "xp": 18660,
       "mana": 0,
-      "hp": 8,
+      "hp": 4,
       "gold": 3246
     },
     {
@@ -663,7 +663,7 @@
       "team": "Cavaleiros e Guerreiros",
       "level": 19,
       "xp": 18227,
-      "mana": 5,
+      "mana": 4,
       "hp": 10,
       "gold": 2487
     },
@@ -673,8 +673,8 @@
       "team": "Lobos e Gatunos",
       "level": 19,
       "xp": 18170,
-      "mana": 5,
-      "hp": 10,
+      "mana": 6,
+      "hp": 6,
       "gold": 499
     },
     {
@@ -683,7 +683,7 @@
       "team": "Dragoes de Combate",
       "level": 19,
       "xp": 18064,
-      "mana": 5,
+      "mana": 4,
       "hp": 10,
       "gold": 2573
     },
@@ -753,7 +753,7 @@
       "team": "Cavaleiros e Guerreiros",
       "level": 18,
       "xp": 17011,
-      "mana": 5,
+      "mana": 4,
       "hp": 10,
       "gold": 370
     },
@@ -793,7 +793,7 @@
       "team": "Cavaleiros e Guerreiros",
       "level": 17,
       "xp": 16486,
-      "mana": 5,
+      "mana": 4,
       "hp": 10,
       "gold": 1412
     },
@@ -804,7 +804,7 @@
       "level": 17,
       "xp": 16456,
       "mana": 5,
-      "hp": 10,
+      "hp": 8,
       "gold": 635
     },
     {
@@ -863,8 +863,8 @@
       "team": "Lobos e Gatunos",
       "level": 15,
       "xp": 14676,
-      "mana": 5,
-      "hp": 10,
+      "mana": 6,
+      "hp": 6,
       "gold": 1774
     },
     {
@@ -873,8 +873,8 @@
       "team": "Magicos e Engenheiros",
       "level": 14,
       "xp": 13284,
-      "mana": 5,
-      "hp": 10,
+      "mana": 8,
+      "hp": 4,
       "gold": 1681
     },
     {
@@ -913,8 +913,8 @@
       "team": "Lobos e Gatunos",
       "level": 13,
       "xp": 12053,
-      "mana": 5,
-      "hp": 10,
+      "mana": 6,
+      "hp": 6,
       "gold": 80
     },
     {
@@ -933,8 +933,8 @@
       "team": "Lobos e Gatunos",
       "level": 9,
       "xp": 8611,
-      "mana": 3,
-      "hp": 8,
+      "mana": 4,
+      "hp": 6,
       "gold": 2429
     },
     {
@@ -943,8 +943,8 @@
       "team": "Magicos e Engenheiros",
       "level": 9,
       "xp": 8056,
-      "mana": 3,
-      "hp": 8,
+      "mana": 5,
+      "hp": 4,
       "gold": 2294
     },
     {
@@ -1023,6 +1023,6 @@
       "score": 7.56
     }
   ],
-  "indexComputedAt": "2026-11-24T16:04:43.144Z",
+  "indexComputedAt": "2026-11-24T16:19:25.116Z",
   "indexMethod": "v1.3: referência histórica + recompensas genéricas válidas em Aprendizagem; revisão histórica pendente"
 }
